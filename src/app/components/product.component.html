@@ -1,0 +1,229 @@
+<div>
+  <h3>One-Way Data Binding</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      one-way databinding
+      <ul>
+        <li>
+          built-in directive
+          <ol>
+            <li>
+              ngClass
+            </li>
+            <li>
+              ngStyle
+            </li>
+            <li>
+              ngIf (structure directive)
+            </li>
+            <li>
+              ngFor (structure directive)
+            </li>
+            <li>
+              ngSwitch ngSwitchCase ngSwitchDefault (structure directive)
+            </li>
+            <li>
+              ngTemplateOutlet
+            </li>
+          </ol>
+        </li>
+        <li>
+          custom directive
+          <ul>
+            <li>[property] - Dom property</li>
+            <li>[attr.name] - Html attribute</li>
+            <li>[class.name]</li>
+            <li>[style.name]</li>
+          </ul>
+        </li>
+        <li>property binding</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<div>
+  <div [ngClass]="'mt-5 '+getClass()">
+  <h4>Ng Class Demo</h4>
+  Name: {{ productRepository.getProduct(1)?.name || 'none' }}
+  </div>
+  <p>
+    ngClass built-in directive evaluates the expression and determine
+    whether including specifying class or not.
+    <br>
+    <code>[ngClass]="getClass()"</code>
+    <br>
+    String interpolation provides simpler way than <code>[textContent]</code> binding.
+  </p>
+</div>
+
+<hr>
+<div class="form-group mt-5">
+  <h4>Property binding example</h4>
+  <label>Name</label>
+  <input type="text"
+         class="form-control"
+         [value]="productRepository.getProduct(1)?.name || 'none'"/>
+  <p>
+    Property binding will be execute if Angular cannot find corresponding built-in driective.
+    It inserts the value to Dom Property
+    <br>
+    <code>[value]="productRepository.getProduct(1)?.name || 'none'"</code>
+  </p>
+</div>
+
+<div class="mt-5">
+  <h4>Attribute binding example</h4>
+  <table class="table table-sm table-bordered table-striped mt-1">
+    <tr>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+    <tr>
+      <td [attr.colspan]="productRepository.getProducts().length">
+        Size of products: {{ productRepository.getProducts().length }}
+      </td>
+    </tr>
+  </table>
+  <p>
+    Sometimes there are no corresponding property with html attribute.
+    In the case use attribute binding. ex) colspan
+    <br>
+    <code>&lt;td [attr.colspan]="productRepository.getProducts().length"&gt;</code>
+  </p>
+</div>
+
+<div class="mt-5">
+  <h4>Setting Classes and Styles</h4>
+
+  <div class="pt-3">
+    <h5>Standard class binding</h5>
+    <div [class]="getClassById(1)">
+      Name: {{ productRepository.getProduct(1)?.name || 'none'}},
+      Price: {{ productRepository.getProduct(1)?.price || 'noprice'}}
+    </div>
+    <div [class]="getClassById(3)" >
+      Name: {{ productRepository.getProduct(3)?.name || 'none'}},
+      Price: {{ productRepository.getProduct(3)?.price || 'noprice'}}
+    </div>
+
+    <p>
+      Standard property binding is used to set class property,
+      but being careful that the binding replaced all the class with the new class
+      <code>[class]="getClassesById(3)"</code>
+    </p>
+  </div>
+
+  <div class="pt-3">
+    <h5>Setting individual classes with special class binding</h5>
+    <div [class.bg-info]="productRepository.getProduct(2).price <= 50"
+         [class.bg-warning]="productRepository.getProduct(2).price > 50">
+      Name: {{ productRepository.getProduct(2)?.name || 'none' }},
+      Price: {{ productRepository.getProduct(2)?.price || 'noprice' }},
+    </div>
+
+    <p>
+      Special class binding provides find-grained control which provides individual class by expression and
+      does not replace with existing class.
+      <br>
+      <code>
+        &lt;div class="card"<br>
+             [class.bg-info]="productRepository.getProduct(2).price > 50"<br>
+             [class.bg-success]="productRepository.getProduct(2).price <= 50"&gt;
+      </code>
+    </p>
+  </div>
+
+  <div class="pt-3">
+    <h5>Setting classes with ngClass (built-in)</h5>
+    <div class="card"
+      [ngClass]="getClassMapById(1)">
+      Name: {{ productRepository.getProduct(1)?.name || 'none' }},
+      Price: {{ productRepository.getProduct(1)?.price || 'noprice' }},
+    </div>
+    <div class="card"
+      [ngClass]="getClassMapById(2)">
+      Name: {{ productRepository.getProduct(2)?.name || 'none' }},
+      Price: {{ productRepository.getProduct(2)?.price || 'noprice' }},
+    </div>
+    <div class="card"
+         [ngClass]="getClassMapById(3)">
+      Name: {{ productRepository.getProduct(3)?.name || 'none' }},
+      Price: {{ productRepository.getProduct(3)?.price || 'noprice' }},
+    </div>
+    <p>
+      ngClass built-in directive provides flexible way to control complex class binding.
+      The directive accepts object which has key of a class name and boolean.
+      <br>
+      <code>
+        [ngClass]="{{ '{' }}
+        'text-center bg-danger' : productRepository.getProduct(3).name == 'Kayak',
+        'bg-info' : productRepository.getProduct(3).price < 50
+        {{ '}' }}" >
+      </code>
+    </p>
+  </div>
+</div>
+
+<div class="mt-5">
+  <h4>Setting Styles</h4>
+  <h5>Setting a single style property</h5>
+  <div class="p-1 bg-warning">
+    The <span [style.fontSize]="fontSizeWithUnits" >first</span>
+    product is {{productRepository.getProduct(1)?.name || 'none' }}.
+  </div>
+  <div class="p-1 bg-info">
+    The <span [style.fontSize.px]="fontSizeWithoutUnits">first</span>
+    product is {{productRepository.getProduct(1)?.name || 'none' }}.
+  </div>
+  <p>
+    The standard style binding provides two mechanisms.
+    <code>[style.styleProperty]</code> or <code>[style.styleProperty.unit?(px)]</code>
+    If you want set multiple styles you should create a binding for each of them.
+    <br>
+    <code>
+      The &lt;span [style.fontSize]="fontSizeWithUnits">first&lt;/span> <br>
+      The &lt;span [style.fontSize.px]="fontSizeWithoutUnits">first&lt;/span>
+    </code>
+  </p>
+  <hr>
+  <h5>Setting multiple styles</h5>
+  <div class="class border-primary">
+    The <span [ngStyle]="getStyles(1)">first</span>
+    product is {{productRepository.getProduct(1)?.name || 'none' }}.
+  </div>
+  <div class="class border-primary">
+    The <span [ngStyle]="getStyles(2)" >second</span>
+    product is {{productRepository.getProduct(2)?.name || 'none' }}.
+  </div>
+  <p>
+    ngStyle (built-in directive) sets multiple style properties by a object.
+    The interesting point is that returned object for ngClass has value of boolean,
+    but ngStyle has the value itself for specifying style.
+    <br>
+    <code>
+      getSyltes(): any {{ '{' }}
+       return {{ '{' }}
+      fontSize: '30px',
+      'margin.px': 100,
+      color: product.price >= 50 ? 'purple' : 'yello'
+      {{ '}' }}
+      {{ '}' }}
+      <br>
+      The &lt;span [ngStyle]="getStyles(2)">second&gt;/span>
+    </code>
+  </p>
+</div>
+<!--
+  <div [ngClass]="getClassesByPosition(0)">
+    The first product is {{getProductByPosition(0).name }}
+  </div>
+
+  <div [ngClass]="getClassesByPosition(1)">
+    The first product is {{getProductByPosition(1).name }}
+  </div>
+-->
