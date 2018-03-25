@@ -3,18 +3,21 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import {ServiceModule} from "./service/service.module";
-import {ProductComponent} from "./components/product.component";
+import {DataBindingComponent} from "./components/data-binding.component";
+import {DirectiveComponent} from "./components/directive.component";
 
 
 const routes: Routes = [
-  {path: 'product', component: ProductComponent },
+  {path: 'databinding', component: DataBindingComponent },
+  {path: 'directive', component: DirectiveComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
+    DataBindingComponent,
+    DirectiveComponent,
   ],
   imports: [
     BrowserModule,

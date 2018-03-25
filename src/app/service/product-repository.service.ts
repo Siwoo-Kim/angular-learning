@@ -14,12 +14,25 @@ export class ProductRepository{
     });
   }
 
+  /**
+   * The method remove the first element add add new copy of removed element to the
+   * end of products array.
+   */
+  swapProduct() {
+    let p = this.products.shift();
+    this.products.push(new Product(p.id, p.name, p.category, p.price));
+    console.log(this.products);
+  }
   getProducts(): Product[] {
     return this.products;
   }
 
   getProduct(id: number) {
     return this.products.find((_product: Product) => this.locator(_product,id) );
+  }
+
+  getCount(): number {
+    return this.products.length;
   }
 
   saveProduct(product: Product) {

@@ -6,9 +6,9 @@ import {Product} from "../model/product.model";
 
 @Component({
   selector: 'product',
-  templateUrl: './product.component.html',
+  templateUrl: './data-binding.component.html',
 })
-export class ProductComponent {
+export class DataBindingComponent {
   fontSizeWithUnits: string = '30px';
   fontSizeWithoutUnits: string = '30';
 

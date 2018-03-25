@@ -1,0 +1,191 @@
+<div>
+  <h3>Built-in directive</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      ngIf directive (structure directive)
+    </li>
+    <li class="list-group-item">
+      ngSwitch directive
+      <ul>
+        <li>ngSwitchCase  (structure directive)</li>
+        <li>ngSwitchDefault  (structure directive)</li>
+      </ul>
+    </li>
+    <li class="list-group-item">
+      ngFor directive (structure directive)
+    </li>
+    <li class="list-group-item">
+      ngTemplateOutlet directive
+    </li>
+    <li class="list-group-item">
+      ngClass
+    </li>
+    <li class="list-group-item">
+      ngStyle
+    </li>
+  </ul>
+</div>
+
+<div class="bg-light mt-5 p-1">
+  There are {{ getProductCount() }} products
+</div>
+<hr>
+
+<div class="mt-5">
+  <div class="bg-light p-1 mt-1"
+       *ngIf="getProductCount() > 4">
+    There are more than 4 products in the model.
+  </div>
+  <div class="bg-light p-1 mt-1"
+       *ngIf="(getProductByIndex(0)?.name || 'none') == 'Kayak' ">
+    The first product is a kayak.
+  </div>
+  <p>
+    <code>ngIf</code> directive evaluates the expression. After that if the expression is true render the content. <br>
+    <code class="col-12">
+      &lt;div *ngIf="getProductCount() > 4" class="bg-info p-1 mt-1">
+        There are more than 4 products in the model.
+      &lt;/div>
+    </code>
+    <code class="col-12">
+      &lt;div *ngIf="getProductByIndex(0) != 'Kayak'" class="bg-info p-1 mt-1">
+        The first product is not a kayak.
+      &lt;/div>
+    </code>
+  </p>
+</div>
+
+<hr>
+<div class="mt-5">
+  <div class="bg-light p-1 mt-1"
+       [ngSwitch]="getProductCount()">
+    <span *ngSwitchCase="1" >There are one products</span>
+    <span *ngSwitchCase="3">There are three products</span>
+    <span *ngSwitchCase="5">There are 5 products</span>
+    <span *ngSwitchDefault>Do not know how many they are</span>
+  </div>
+  <p>
+    <code>ngSwitch directive</code> selects one of several elements based on the expression.
+    Be careful that ngSwicth itself is not a structure directive, actually the inner directive
+    of <code>ngSwitchCase</code> and <code>ngSwitchDefault</code> is the structure directive with asteric prefixed
+    <br>
+    <code>
+      &lt;div class="bg-info p-1 mt-1" [ngSwitch]="getProductCount()"><br>
+      &nbsp;&lt;span *ngSwitchCase="1">There are one products&lt;/span> <br>
+      &nbsp;&lt;span *ngSwitchCase="3">There are three products&lt;/span> <br>
+      &nbsp;&lt;span *ngSwitchCase="5">There are 5 products&lt;/span> <br>
+      &nbsp;&lt;span *ngSwitchDefault>Do not know how many they are&lt;/span> <br>
+      &lt;/div>
+    </code>
+  </p>
+</div>
+
+<hr>
+<div class="mt-5">
+  <table class="bg-light table table-sm table-bordered table-hover mt-1">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of getProducts();
+        let _index = index;
+        let _odd = odd;
+        let _even = even;
+        let _first = first;
+        let _last = last;"
+        [class.bg-light]="_odd && !(_first || _last)"
+        [class.bg-warning]="_even && !(_first || _last)"
+        [class.bg-primary]="_first"
+        [class.bg-dark]="_last">
+        <td>{{ _index }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <code>ngFor</code> directive repeats all elements in a array.
+    Notice that you should join elements with array by using the term "of".
+    If you want, you can access the access of array by declaring index variable.
+    <br>
+  </p>
+  <pre class="bg-light">
+      &lt;tr *ngFor="let product of getProducts();
+        let _index = index;
+        let _odd = odd;
+        let _even = even;
+        let _first = first;
+        let _last = last;"
+          [class.bg-light]="_odd && !(_first || _last)"
+          [class.bg-warning]="_even && !(_first || _last)"
+          [class.bg-primary]="_first"
+          [class.bg-dark]="_last">
+    </pre>
+  <ul class="list-inline bg-light">
+    <h6>ngFor local variable</h6>
+    <li class="list-inline-item">index</li>
+    <li class="list-inline-item">odd</li>
+    <li class="list-inline-item">even</li>
+    <li class="list-inline-item">first</li>
+    <li class="list-inline-item">last</li>
+  </ul>
+</div>
+
+<ng-template let-title="title" #simpleTemplate>
+  <hr>
+  <h4 class="p-1 bg-info">{{ title }}</h4>
+</ng-template>
+
+<div class="mt-5">
+  <ng-template [ngTemplateOutlet]="simpleTemplate" [ngTemplateOutletContext]="{title : 'template1'}"></ng-template>
+  <ng-template [ngTemplateOutlet]="simpleTemplate" [ngTemplateOutletContext]="{title : 'template2'}"></ng-template>
+
+  <p> <code>[ngTemplateOutlet]</code> directive is used to repeat a block of content
+    to avoid duplication.
+    <code>let-</code> attribute declare local variable in the template and you can pass the value by using
+    <code>[ngTemplateOutletContext]</code>
+  </p>
+  <pre>
+    &lt;ng-template let-title="title" #simpleTemplate>
+      &lt;hr>
+      &lt;h4 class="p-1 bg-info">{{ title }}&lt;/h4>
+    &lt;/ng-template>
+
+     &lt;ng-template [ngTemplateOutlet]="simpleTemplate" [ngTemplateOutletContext]="{{ '{' }}title : 'template1'}">&lt;/ng-template>
+     &lt;ng-template [ngTemplateOutlet]="simpleTemplate" [ngTemplateOutletContext]="{{ '{' }}title : 'template2'}">&lt;/ng-template>
+  </pre>
+
+  <div class="mt-5">
+    <h4 class="bg-warning">What you should know about one-way databinding</h4>
+    <ul class="list-group border">
+      <li class="list-group-item">One-way data binding must be idempotent(멱등)
+        <p>
+          One-way data bindings should affected by one direction, but if you try to changing
+          other side, you will get error (think as http method GET)
+        </p>
+        <pre >
+          Invalid code :
+          {{ '{' }} {{ '{' }} counter = counter + 1 }}  << try to change the local value.
+        </pre>
+      </li>
+      <li class="list-group-item">Should be in Expression Context
+        <p>
+          In the template, you can't access objects outside of the component.
+        </p>
+
+        <pre>
+          Price is {{ '{' }}{{ '{' }} Math.floor(price) }} << try to access Math object in the global space.
+        </pre>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+
