@@ -154,7 +154,7 @@
   <pre>
     &lt;ng-template let-title="title" #simpleTemplate>
       &lt;hr>
-      &lt;h4 class="p-1 bg-info">{{ title }}&lt;/h4>
+      &lt;h4 class="p-1 bg-info">{{ '{' }} {{ '{' }} title }}&lt;/h4>
     &lt;/ng-template>
 
      &lt;ng-template [ngTemplateOutlet]="simpleTemplate" [ngTemplateOutletContext]="{{ '{' }}title : 'template1'}">&lt;/ng-template>
