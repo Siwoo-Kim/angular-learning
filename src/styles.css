@@ -1,6 +1,7 @@
 
 
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Inconsolata|Love+Ya+Like+A+Sister|Orbitron|Shadows+Into+Light|Shadows+Into+Light+Two|Source+Sans+Pro');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /*
   font-family: 'IBM Plex Mono', monospace;
@@ -11,6 +12,10 @@
   font-family: 'Orbitron', sans-serif;
   font-family: 'Shadows Into Light Two', cursive;
 */
+
+mat-form-field {
+  width: 100%;
+}
 
 body {
   font-size: .875rem;
@@ -39,6 +44,11 @@ code {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
+pre.code-block {
+  padding-top: 1rem;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
 .sidebar-sticky {
   position: -webkit-sticky;
   position: sticky;

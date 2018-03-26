@@ -1,0 +1,217 @@
+<div>
+  <h3>Event Binding</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      Forms Support
+      <ol>
+        <li>User input</li>
+        <li>Validation</li>
+      </ol>
+    </li>
+    <li class="list-group-item">
+      Respond to an event
+    </li>
+    <li class="list-group-item">
+      $event
+    </li>
+    <li class="list-group-item">
+      Template Variable
+    </li>
+    <li class="list-group-item">
+      Two-way databinding
+    </li>
+  </ul>
+</div>
+<hr>
+
+<div class="mt-3">
+  <h4>Respond to an event</h4>
+  <div class="border border-primary rounded p-2 text-center">
+    {{ selectedProduct || '(empty)' }}
+  </div>
+  <table class="table-sm table-bordered table-hover mt-1 col-12">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of getProducts();let i = index;"
+          (mouseover)="selectedProduct = product.name || 'No Exists'"
+          [ngStyle]="{ 'border' : getSelect(product) ? '2px solid gold' : '' }">
+        <td>{{ i + 1 }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="pt-3">
+    Event binding has four parts. <em>host element, round brackets, event, expression</em>
+    Host element is the source of events, event specifies what kind of event, and the expression is
+    an callback.
+  </p>
+  <pre class="code-block" ngnonbindable>
+    &lt;tr *ngFor="let product of getProducts();let i = index;"
+        (mouseover)="selectedProduct = product.name || 'No Exists'"
+        [ngStyle]="{{ '{' }} 'border' : getSelect(product) ? '2px solid gold' : '' }">
+  </pre>
+
+  <h4>$event</h4>
+  <div class="form-group">
+    <mat-form-field>
+      <input type="text"
+             matInput
+             (keyup.enter)="selectedProduct = $event.target.value">
+      <mat-hint>Please enter the product name and press enter</mat-hint>
+    </mat-form-field>
+  </div>
+  <p>
+    Angular provides event object when an event is triggered with the name with $event.
+    You can access the DOM Element by $event.target
+  </p>
+  <pre class="code-block" ngnonbindable>
+    &lt;mat-form-field>
+      &lt;input type="text"
+             matInput
+             (keyup.enter)="selectedProduct = $event.target.value">
+      &lt;mat-hint>Please enter the product name and press enter&lt;/mat-hint>
+    &lt;/mat-form-field>
+  </pre>
+</div>
+<hr>
+
+<div class="mt-3">
+  <h4>Template variable</h4>
+  <div class="border border-primary rounded p-2 text-center">
+    {{ productInput.value || '(empty)' }}
+  </div>
+  <table class="table-sm table-bordered table-hover mt-1 col-12">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of getProducts(); let i = index;"
+        (mouseover)="productInput.value = product.name"
+        [ngClass]="{'text-primary': productInput.value == product.name }">
+      <td>{{ i + 1 }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.price }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <mat-form-field>
+      <input type="text"
+             matInput
+             #productInput
+             placeholder="Product Name">
+      <mat-hint>Please enter product name</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <p>
+    Template variable are used to pass data within a template. The variable is a reference
+    Dom Element. Template variable is defined with # prefix.
+  </p>
+
+  <pre class="code-block" ngNonBindable>
+       &lt;tr *ngFor="let product of getProducts(); let i = index;"
+           (mouseover)="productInput.value = product.name"
+           [ngClass]="{{ '{' }}'text-primary': productInput.value == product.name }">
+
+           ......
+       &lt;/tr>
+    &lt;/tbody>
+    &lt;/table>
+    &lt;div class="form-group">
+    &lt;mat-form-field>
+      &lt;input type="text"
+             matInput
+             #productInput
+             placeholder="Product Name">
+      &lt;mat-hint>Please enter product name&lt;/mat-hint>
+    &lt;/mat-form-field>
+  </pre>
+</div>
+<hr>
+
+<div class="mt-3">
+  <h4>Two-way databinding</h4>
+  <div class="border border-primary mt-3 text-center">
+    {{ selectedProductWithTwoWay || '(none)' }}
+  </div>
+  <table class="table table-bordered table-hover col-12">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of getProducts();let i = index"
+          [ngStyle]="{'border' : selectedProductWithTwoWay == product.name ? '2px solid gold' : ''}">
+        <td>{{ i + 1}}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price | currency : 'USD' : 'symbol' : '2.2-2'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <mat-form-field>
+      <input type="text"
+             matInput
+             [value]="selectedProductWithTwoWay || ''"
+             (keyup.enter)="selectedProductWithTwoWay = $event.target.value"
+             placeholder="Product Name">
+      <mat-hint>Type the product name and press enter</mat-hint>
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <input type="text"
+             matInput
+             [(ngModel)]="selectedProductWithTwoWay"
+             placeholder="Product Name">
+      <mat-hint>Type the product name and press enter</mat-hint>
+    </mat-form-field>
+
+  </div>
+  <p>
+    Two-way databinding can be accomplish by binding event to property by event binding and
+    property binding to dom with [].
+    NgModel direcitve can be used to simplify the two-way databinding.
+    A combination of squeal and round brackets '[()]' tells angular that this is a two-way databinding.
+    Also notice that if you omit '()' and just denote '[ngModel]', it tells Angular to initiate the value property
+    of HtmlInputElement.
+  </p>
+
+  <pre class="code-block" ngNonBindable>
+    &lt;mat-form-field>
+        &lt;input type="text"
+               matInput
+               (keyup.enter)="selectedProductByTwoWay = $event.target.value"
+               [value]="selectedProductByTwoWay || ''"
+               placeholder="Type the product name to select">
+      &lt;/mat-form-field>
+      &lt;mat-form-field>
+        &lt;input type="text"
+               matInput
+               [(ngModel)]="selectedProductByTwoWay"
+               placeholder="Type the product name to select">
+      &lt;/mat-form-field>
+  </pre>
+  <hr>
+</div>
+<hr>
