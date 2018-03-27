@@ -8,10 +8,12 @@ import {DirectiveComponent} from "./components/directive.component";
 import { EventBindingComponent } from './components/event-binding/event-binding/event-binding.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatButtonModule, MatFormFieldModule, MatInputModule} from "@angular/material";
+import { FormComponent } from './components/form/form.component';
 
 
 const routes: Routes = [
+  {path: 'form', component: FormComponent },
   {path: 'event', component: EventBindingComponent },
   {path: 'databinding', component: DataBindingComponent },
   {path: 'directive', component: DirectiveComponent },
@@ -24,6 +26,7 @@ const routes: Routes = [
     DataBindingComponent,
     DirectiveComponent,
     EventBindingComponent,
+    FormComponent,
 
   ],
   imports: [
@@ -32,6 +35,7 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatButtonModule,
     MatFormFieldModule,
     RouterModule.forRoot(routes),
   ],

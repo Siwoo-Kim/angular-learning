@@ -1,0 +1,330 @@
+<div>
+  <h3>Forms</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      Forms
+      <ul>
+        <li>
+          Forms with NgModel (two-way binding)
+        </li>
+        <li>
+          Validation (HTML STANDARD)
+          <ul>
+            <li>required</li>
+            <li>minlength</li>
+            <li>maxlength</li>
+            <li>pattern</li>
+          </ul>
+          Custom Validation
+        </li>
+
+        <li>
+          ..
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<hr>
+<div class="mt-3">
+  <div class="border border-primary p-1 m-1">New Product {{ newProduct }}</div>
+  <div class="form-group p-2 m-2">
+    <mat-form-field class="form-group">
+      <input type="text"
+             matInput
+             placeholder="Name"
+             [(ngModel)]="_newProduct.name">
+      <mat-hint>Enter Product Name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input type="text"
+             matInput
+             placeholder="Category"
+             [(ngModel)]="_newProduct.category">
+      <mat-hint>Enter Category Name</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input type="number"
+             matInput
+             placeholder="Price"
+             [(ngModel)]="_newProduct.price">
+      <mat-hint>Enter Product Price</mat-hint>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="btn-block"
+            (click)="addProduct(newProduct)">
+      Create
+    </button>
+  </div>
+
+  <p>
+    NgModel is useful for binding input value with the property you want to get from user.
+    Ng model is applied to Each input element is applied to create two-way binding.
+  </p>
+
+  <pre class="code-block">
+     &lt;mat-form-field class="form-group">
+      &lt;input type="text"
+             matInput
+             placeholder="Name"
+             [(ngModel)]="_newProduct.name">
+      &lt;mat-hint>Enter Product Name&lt;/mat-hint>
+    &lt;/mat-form-field>
+    &lt;mat-form-field class="form-group">
+      &lt;input type="text"
+             matInput
+             placeholder="Category"
+             [(ngModel)]="_newProduct.category">
+      &lt;mat-hint>Enter Category Name&lt;/mat-hint>
+    &lt;/mat-form-field>
+    &lt;mat-form-field class="form-group">
+      &lt;input type="number"
+             matInput
+             placeholder="Price"
+             [(ngModel)]="_newProduct.price">
+      &lt;mat-hint>Enter Product Price&lt;/mat-hint>
+    &lt;/mat-form-field>
+    &lt;button mat-raised-button color="primary" class="btn-block"
+            (click)="addProduct(newProduct)">
+      Create
+    &lt;/button>
+  </pre>
+</div>
+
+<hr>
+<div class="mt-3">
+  <h4>Validation</h4>
+
+  <form #f="ngForm"
+    novalidate
+    (ngSubmit)="addProduct(_newProduct)">
+    <p class="border border-primary">Form Valid ? : {{ f.valid }}</p>
+    <mat-form-field class="mt-2 p-2">
+      <input type="text"
+             name="name"
+             matInput
+             [(ngModel)]="_newProduct.name"
+             placeholder="Name"
+             required
+             minlength="5"
+             pattern="^[a-zA-Z]+$">
+      <mat-hint>Enter Product</mat-hint>
+      <mat-error>Error! Only characters (no space) and more than 5!</mat-error>
+    </mat-form-field>
+    <button mat-raised-button
+            color="primary"
+            type="submit">
+      Submit
+    </button>
+  </form>
+
+  <p>
+    HTML specification defines the four validation attributes. <code>required, minlength, maxlength, pattern</code>.
+    But if you want use one of these, you tell that to don't use standard validation but Angular one.
+    By telling this, you can use novalidate attribute on the form element.
+    Below code is Template Driven Form approach.
+  </p>
+  <pre class="code-block" ngnonbindable>
+      &lt;form #f="ngForm"
+            novalidate
+            (ngSubmit)="addProduct(_newProduct)">
+        &lt;p class="border border-primary">Form Valid ? : {{ f.valid }}&lt;/p>
+        &lt;mat-form-field class="mt-2 p-2">
+          &lt;input type="text"
+                 name="name"
+                 matInput
+                 [(ngModel)]="_newProduct.name"
+                 placeholder="Name"
+                 required
+                 minlength="5"
+                 pattern="^[a-zA-Z]+$">
+          &lt;mat-hint>Enter Product&lt;/mat-hint>
+          &lt;mat-error>Error!&lt;/mat-error>
+        &lt;/mat-form-field>
+        &lt;button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="f.invalid">
+          Submit
+        &lt;/button>
+      &lt;/form>
+  </pre>
+  <hr>
+  <h4>FormControl Status</h4>
+  <div class="border border-primary p-1 m-1">
+    New Product: {{ newProduct }}
+  </div>
+  <style>
+    .form-status input.ng-dirty.ng-invalid {
+      background-color: hotpink;
+    }
+    .form-status input.ng-dirty.ng-valid {
+      background-color: darkseagreen;
+    }
+  </style>
+  <form #f2="ngForm"
+        class="form-status"
+        novalidate
+        (ngSumbit)="addProduct(_newProduct)">
+    <mat-form-field>
+      <input type="text"
+             name="name"
+             matInput
+             [(ngModel)]="_newProduct.name"
+             minlength="5"
+             pattern="^[a-zA-Z]+$">
+      <mat-hint>Enter Product</mat-hint>
+      <mat-error>Error! Only characters (no space) and more than 5!</mat-error>
+    </mat-form-field>
+    <button mat-raised-button
+            color="primary"
+            class="btn-block">
+      Create
+    </button>
+  </form>
+
+  <p>
+    There are statuses about input element which is defined by Angular.
+    <code>ng-touched, ng-dirty, ng-valid</code>.
+    When input status changes (ex. event), ngControl directive chagnes the classes for input element
+    automatically. This is nice feature to inform user what is wrong with data.
+  </p>
+
+  <pre class="code-block">
+    &lt;style>
+    .form-status input.ng-dirty.ng-invalid {{ '{' }}
+      background-color: hotpink;
+    }
+    .form-status input.ng-dirty.ng-valid {{ '{' }}
+      background-color: darkseagreen;
+    }
+    &lt;/style>
+   &lt;form #f2="ngForm"
+         class="form-status"
+         novalidate
+         (ngSumbit)="addProduct(_newProduct)">
+      &lt;mat-form-field>
+        &lt;input type="text"
+               name="name"
+               matInput
+               [(ngModel)]="_newProduct.name"
+               minlength="5"
+               pattern="^[a-zA-Z]+$">
+        &lt;mat-hint>Enter Product&lt;/mat-hint>
+        &lt;mat-error>Error! Only characters (no space) and more than 5!&lt;/mat-error>
+      &lt;/mat-form-field>
+      &lt;button mat-raised-button
+              color="primary"
+              class="btn-block">
+        Create
+      &lt;/button>
+    &lt;/form>
+  </pre>
+
+  <div class="border p-1 m-1">
+    New Product: {{ newProduct }}
+  </div>
+
+  <form #f="ngForm"
+        (ngSubmit)="addProduct(_newProduct)"
+        novalidate>
+    <mat-form-field class="m-1 p-1">
+      <input type="text"
+             name="category"
+             matInput
+             [(ngModel)]="_newProduct.category"
+             #categoryInput="ngModel"
+             required
+             minlength="5"
+             maxlength="10"
+             pattern="^[a-zA-Z]+$">
+      <mat-hint>Enter category Name</mat-hint>
+      <div class="hasError"
+           *ngIf="categoryInput.dirty && categoryInput.invalid">
+        <mat-error *ngIf="categoryInput.errors?.required">
+          Name cannot be null
+        </mat-error>
+        <mat-error *ngIf="categoryInput.errors?.minlength">
+          Name contains more than 5 characters
+        </mat-error>
+        <mat-error *ngIf="categoryInput.errors?.maxlength">
+          Name can not contains more than 10 characters
+        </mat-error>
+        <mat-error *ngIf="categoryInput.errors?.pattern">
+          Name is illegal format
+        </mat-error>
+      </div>
+    </mat-form-field>
+    <ul class="list-group text-danger mt-2">
+      <li class="list-group-item border border-bottom"
+          *ngFor="let error of getFormError(categoryInput)">
+        {{ error }}
+      </li>
+    </ul>
+  </form>
+  <p>
+    Each ngControl has property of errors which tell what is invalid.
+    errors may have one or more object which key is validation name and the boolean. (If it is true,
+    the ngControl has corresponding error.
+    Below code use template reference object if you don't know go to the <a routerLink="/event">link</a> to learn more about.
+  </p>
+
+  <pre class="code-block">
+    getFormError(ngModel: NgModel): string[] {{ '{' }}
+      let name = ngModel.path;
+      let messages: string[] = [];
+
+
+       for(let error in ngModel.errors) {{ '{' }}
+          console.log(error);
+          switch(error) {{ '{' }}
+            case 'required': messages.push(`${{ '{' }}name} must not null`); break;
+            case 'minlength': messages.push(`${{ '{' }}name} has more than ${{ '{' }}ngModel.errors[error].requiredLength}`);  break;
+            case 'maxlength': messages.push(`${{ '{' }}name} has less than ${{ '{' }}ngModel.errors[error].requiredLength}`);  break;
+            case 'pattern': messages.push(`${{ '{' }}name} has illegal format`);
+          }
+       }
+       return messages;
+      }
+    }
+  </pre>
+
+  <pre class="code-block">
+    &lt;form #f="ngForm"
+          (ngSubmit)="addProduct(_newProduct)"
+          novalidate>
+      &lt;mat-form-field class="m-1 p-1">
+        &lt;input type="text"
+               name="category"
+               matInput
+               [(ngModel)]="_newProduct.category"
+               #categoryInput="ngModel"
+               required
+               minlength="5"
+               maxlength="10"
+               pattern="^[a-zA-Z]+$">
+        &lt;mat-hint>Enter category Name&lt;/mat-hint>
+        &lt;div class="hasError"
+             *ngIf="categoryInput.dirty && categoryInput.invalid">
+          &lt;mat-error *ngIf="categoryInput.errors?.required">
+            Name cannot be null
+          &lt;/mat-error>
+          &lt;mat-error *ngIf="categoryInput.errors?.minlength">
+            Name contains more than 5 characters
+          &lt;/mat-error>
+          &lt;mat-error *ngIf="categoryInput.errors?.maxlength">
+            Name can not contains more than 10 characters
+          &lt;/mat-error>
+          &lt;mat-error *ngIf="categoryInput.errors?.pattern">
+            Name is illegal format
+          &lt;/mat-error>
+        &lt;/div>
+      &lt;/mat-form-field>
+      &lt;ul class="list-group text-danger mt-2">
+        &lt;li class="list-group-item border border-bottom"
+            *ngFor="let error of getFormError(categoryInput)">
+          {{ error }}
+        &lt;/li>
+      &lt;/ul>
+    &lt;/form>
+  </pre>
+</div>
