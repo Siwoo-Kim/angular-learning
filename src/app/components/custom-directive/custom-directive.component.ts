@@ -66,7 +66,7 @@ export class CustomDirectiveComponent {
     this.dataSource = new MatTableDataSource(this.elements);
   }
 
-  submitForm(form: NgForm) {
+  submitForm(form: any) {
 
   }
 }
