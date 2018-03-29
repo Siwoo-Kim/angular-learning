@@ -1,0 +1,160 @@
+
+<div>
+  <h3>Custom Directive</h3>
+  <ul class="list-group">
+    <li class="list-group-item">
+      @Directive decorator
+    </li>
+    <li class="list-group-item">
+      @Attribute decorator
+    </li>
+    <li class="list-group-item">
+      @Input decorator
+    </li>
+    <li class="list-group-item">
+      @Output decorator
+    </li>
+    <li class="list-group-item">
+      @HostBinding and @HostListener decorator
+    </li>
+    <li class="list-group-item">
+      exportAs property
+    </li>
+  </ul>
+</div>
+
+<hr>
+<div class="row">
+ <div class="col-6">
+   <form class="form-group"
+         [formGroup]="form"
+         (ngSubmit)="submitForm(form)"
+         novalidate>
+     <mat-form-field *ngFor="let control of form.productControls">
+       <input type="text"
+              matInput
+              name="{{control.name}}"
+              formControlName="{{control.name}}">
+       <mat-hint>Enter {{control.name}}</mat-hint>
+     </mat-form-field>
+   </form>
+ </div>
+  <div class="col-6">
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.category}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayColumns"></mat-row>
+    </mat-table>
+  </div>
+</div>
+
+<pre class="code-block" ngnonbindable>
+   &lt;div class="col-6">
+    &lt;form [formGroup]="form"
+          (ngSubmit)="submitForm(f)"
+          novalidate>
+      &lt;div class="form-group mt-1" *ngFor="let control of form.productControls">
+        &lt;mat-form-field class="m-0">
+          &lt;input type="text"
+                 matInput
+                 name="{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}control.modelProperty}}"
+                 [(ngModel)]="newProduct[control.modelProperty]"
+                 formControlName="{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}control.modelProperty}}">
+          &lt;mat-hint>Enter {{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}control.modelProperty}}&lt;/mat-hint>
+        &lt;/mat-form-field>
+      &lt;/div>
+      &lt;button type="submit" mat-raised-button class="btn-block">Submit&lt;/button>
+    &lt;/form>
+  &lt;/div>
+  &lt;div class="col-6">
+    &lt;mat-table #table [dataSource]="dataSource">
+      &lt;ng-container matColumnDef="position">
+        &lt;mat-header-cell *matHeaderCellDef>No.&lt;/mat-header-cell>
+        &lt;mat-cell *matCellDef="let element">{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}element.position}}&lt;/mat-cell>
+      &lt;/ng-container>
+      &lt;ng-container matColumnDef="name">
+        &lt;mat-header-cell *matHeaderCellDef>Name&lt;/mat-header-cell>
+        &lt;mat-cell *matCellDef="let element">{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}element.name}}&lt;/mat-cell>
+      &lt;/ng-container>
+      &lt;ng-container matColumnDef="price">
+        &lt;mat-header-cell *matHeaderCellDef>Price&lt;/mat-header-cell>
+        &lt;mat-cell *matCellDef="let element">{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}element.price}}&lt;/mat-cell>
+      &lt;/ng-container>
+      &lt;ng-container matColumnDef="category">
+        &lt;mat-header-cell *matHeaderCellDef>Category&lt;/mat-header-cell>
+        &lt;mat-cell *matCellDef="let element">{{ '{' }}{{ '{' }} '{{ '{' }} }}{{ '{' }}{{ '{' }} '{{ '{' }} }}element.category}}&lt;/mat-cell>
+      &lt;/ng-container>
+      &lt;mat-header-row *matHeaderRowDef="displayedColumns">&lt;/mat-header-row>
+      &lt;mat-row *matRowDef="let row; columns: displayedColumns;">&lt;/mat-row>
+    &lt;/mat-table>
+  &lt;/div>
+
+  <hr>
+
+  export class ProductFormControl extends FormControl{{ '{' }}
+    label: string;
+    modelProperty: string;
+
+    constructor(label: string, property: string, value: any, validator: any) {{ '{' }}
+      super(value, validator);
+      this.label = label;
+      this.modelProperty = property;
+    }
+  }
+
+  export class ProductFormGroup extends FormGroup {{ '{' }}
+    constructor() {{ '{' }}
+      super({{ '{' }}
+        name: new ProductFormControl('Name','name', "", Validators.required),
+        category: new ProductFormControl('Category','category','',
+          Validators.compose([
+            Validators.pattern('^[a-zA-Z]+$'),
+            Validators.minLength(3),
+            Validators.maxLength(10)])),
+        price: new ProductFormControl('Price', 'price', '',
+          Validators.compose(
+          [
+            Validators.pattern('^[0-9\.]+$'),
+            Validators.required
+          ]))
+      })
+    };
+
+    get productControls(): ProductFormControl[] {{ '{' }}
+      return Object.keys(this.controls).map(key => this.controls[key] as ProductFormControl);
+    }
+  }
+  @Component({{ '{' }}
+    selector: 'app-custom-directive',
+    templateUrl: './custom-directive.component.html',
+    styleUrls: ['./custom-directive.component.css']
+  })
+  export class CustomDirectiveComponent {{ '{' }}
+    form: ProductFormGroup = new ProductFormGroup();
+    newProduct: Product = new Product();
+    displayedColumns = ['position', 'name', 'price', 'category'];
+    dataSource = new MatTableDataSource&lt;Product>(this.getProducts().slice());
+
+    constructor(private productRepository: ProductRepository) {{ '{' }} }
+
+    getProducts() :Product[] {{ '{' }}
+      return this.productRepository.getProducts();
+    }
+  }
+</pre>

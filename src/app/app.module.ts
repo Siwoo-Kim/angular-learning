@@ -6,10 +6,11 @@ import {ServiceModule} from "./service/service.module";
 import {DataBindingComponent} from "./components/data-binding.component";
 import {DirectiveComponent} from "./components/directive.component";
 import { EventBindingComponent } from './components/event-binding/event-binding/event-binding.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatButtonModule, MatFormFieldModule, MatInputModule} from "@angular/material";
+import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatTableModule} from "@angular/material";
 import { FormComponent } from './components/form/form.component';
+import { CustomDirectiveComponent } from './components/custom-directive/custom-directive.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'event', component: EventBindingComponent },
   {path: 'databinding', component: DataBindingComponent },
   {path: 'directive', component: DirectiveComponent },
+  {path: 'custom-directive', component: CustomDirectiveComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
@@ -27,15 +29,19 @@ const routes: Routes = [
     DirectiveComponent,
     EventBindingComponent,
     FormComponent,
+    CustomDirectiveComponent,
 
   ],
   imports: [
     BrowserModule,
     ServiceModule,
+    ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
+    MatTableModule,
+    MatSortModule,
     MatFormFieldModule,
     RouterModule.forRoot(routes),
   ],
