@@ -11,6 +11,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatTableModule} from "@angular/material";
 import { FormComponent } from './components/form/form.component';
 import { CustomDirectiveComponent } from './components/custom-directive/custom-directive.component';
+import {
+  SwBackgroundAttribute, SwModelAttribute, SwProductAttribute,
+} from "./components/custom-directive/directives/attr.directive";
 
 
 const routes: Routes = [
@@ -30,7 +33,9 @@ const routes: Routes = [
     EventBindingComponent,
     FormComponent,
     CustomDirectiveComponent,
-
+    SwBackgroundAttribute,
+    SwProductAttribute,
+    SwModelAttribute,
   ],
   imports: [
     BrowserModule,

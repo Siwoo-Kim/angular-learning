@@ -38,7 +38,7 @@ export class ProductFormGroup extends FormGroup{
   }
 }
 
-interface Element {
+export interface Element {
   position: number;
   name: string;
   price: number;
@@ -66,7 +66,69 @@ export class CustomDirectiveComponent {
     this.dataSource = new MatTableDataSource(this.elements);
   }
 
-  submitForm(form: any) {
-
+  getProduct(id: number): Product {
+    return this.products.find(p => p.id == id);
   }
+
+  getProducts(): Product[] {
+    return this.products;
+  }
+
+  newProduct: Product = new Product();
+
+  addProduct(product: Product) {
+    this.products.push(product);
+    this.syncTable();
+  }
+
+  syncTable() {
+    console.log('sync');
+    this.elements = this.products.map((product,index) => {
+      return {'position': index+1, 'name': product.name, 'price': product.price, 'category' : product.category}
+    });
+    this.dataSource = new MatTableDataSource(this.elements);
+  }
+
+  submitted: boolean = false;
+  submitForm(form: any) {
+    this.submitted = true;
+    if(this.form.valid) {
+      this.addProduct(this.newProduct);
+      this.newProduct = new Product();
+      form.reset();
+      this.submitted = false;
+    }
+  }
+
+  btnClicked: boolean = false;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
