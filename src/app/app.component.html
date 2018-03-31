@@ -1,6 +1,11 @@
 
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Angular-Learning</a>
+<nav class="navbar bg-white sticky-top flex-md-nowrap p-0">
+  <a class="col-sm-3 col-md-2 mr-0" href="#">
+    <h2 class="ui center aligned" >
+      <i class="circular angular icon"></i>
+      Angular5
+    </h2>
+  </a>
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
@@ -11,45 +16,66 @@
 
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link"
-               routerLink="databinding"
-               routerLinkActive="active">
-              <span data-feather="home"></span>
-              Databinding <span class="sr-only">(current)</span>
-            </a>
-            <a class="nav-link"
-               routerLink="directive"
-               routerLinkActive="active">
-              <span data-feather="home"></span>
-              Directive <span class="sr-only">(current)</span>
-            </a>
-            <a class="nav-link"
-               routerLink="event"
-               routerLinkActive="active">
-              <span data-feather="home"></span>
-              Event <span class="sr-only">(current)</span>
-            </a>
-            <a class="nav-link"
-               routerLink="form"
-               routerLinkActive="active">
-              <span data-feather="home"></span>
-              Form <span class="sr-only">(current)</span>
-            </a>
-            <a class="nav-link"
-               routerLink="custom-directive"
-               routerLinkActive="active">
-              <span data-feather="home"></span>
-              Custom Directive <span class="sr-only">(current)</span>
-            </a>
-          </li>
-        </ul>
+    <div class="ui vertical menu col-2">
+      <div class="item">
+        <div class="ui input"><input type="text" placeholder="Search..."></div>
       </div>
-    </nav>
-
+      <div class="item">
+        Basic
+        <div class="menu">
+          <a class="nav-link item"
+             routerLink="databinding"
+             routerLinkActive="active">
+            <span data-feather="home"></span>
+            Databinding <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link item"
+             routerLink="directive"
+             routerLinkActive="active">
+            <span data-feather="home"></span>
+            Directive <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link item"
+             routerLink="event"
+             routerLinkActive="active">
+            <span data-feather="home"></span>
+            Event <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link item"
+             routerLink="form"
+             routerLinkActive="active">
+            <span data-feather="home"></span>
+            Form <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link item"
+             routerLink="custom-directive"
+             routerLinkActive="active">
+            <span data-feather="home"></span>
+            Custom Directive <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link item"
+             routerLink="sdirective"
+             routerLinkActive="active">
+            Structural-directive <span class="sr-only">(current)</span>
+          </a>
+        </div>
+      </div>
+      <a class="item">
+        <i class="grid layout icon"></i> Disable
+      </a>
+      <a class="item">
+        Disable
+      </a>
+      <div class="ui dropdown item">
+        Disable
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item"><i class="globe icon"></i> Choose Language</a>
+          <a class="item"><i class="settings icon"></i> Account Settings</a>
+        </div>
+      </div>
+    </div>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="font-family: 'IBM Plex Mono', monospace;">
       <router-outlet></router-outlet>
     </main>

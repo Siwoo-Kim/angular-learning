@@ -14,6 +14,9 @@ import { CustomDirectiveComponent } from './components/custom-directive/custom-d
 import {
   SwBackgroundAttribute, SwModelAttribute, SwProductAttribute,
 } from "./components/custom-directive/directives/attr.directive";
+import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
+import {SwIfStructureDirective} from "./components/structural-directive/directives/sw-if-structure.directive";
+import {SwForStructureDirective} from "./components/structural-directive/directives/sw-for-structure.directive";
 
 
 const routes: Routes = [
@@ -22,6 +25,7 @@ const routes: Routes = [
   {path: 'databinding', component: DataBindingComponent },
   {path: 'directive', component: DirectiveComponent },
   {path: 'custom-directive', component: CustomDirectiveComponent },
+  {path: 'sdirective', component: StructuralDirectiveComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
@@ -36,6 +40,9 @@ const routes: Routes = [
     SwBackgroundAttribute,
     SwProductAttribute,
     SwModelAttribute,
+    StructuralDirectiveComponent,
+    SwIfStructureDirective,
+    SwForStructureDirective,
   ],
   imports: [
     BrowserModule,

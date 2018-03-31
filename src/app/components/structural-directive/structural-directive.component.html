@@ -1,0 +1,219 @@
+<div class="ui top attached label m-2">
+  Summary
+</div>
+<div class="ui ordered list mb-3">
+  <h4>Structural Directive</h4>
+  <a class="item">@Directive</a>
+  <a class="item">ForOf</a>
+  <a class="item">NgDoCheck</a>
+  <div class="item">
+    <a>Query host element</a>
+    <div class="list">
+      <a class="item">@ContentChild</a>
+      <a class="item">@ContentChildren</a>
+    </div>
+  </div>
+</div>
+<hr>
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products; let i = index"
+      (click)="_selectedProduct = product"
+      [ngStyle]="{'color' : product == _selectedProduct ? 'purple' : '' }">
+    <td class="ui ribbon"
+        [ngClass]="{'label' : product == _selectedProduct}">
+      {{i + 1}}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.category }}</td>
+    <td>{{ product.price }}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th colspan="3">
+      <div class="ui right floated pagination menu">
+        <a class="icon item">
+          <i class="left chevron icon"></i>
+        </a>
+        <a class="item">1</a>
+        <a class="item">2</a>
+        <a class="item">3</a>
+        <a class="item">4</a>
+        <a class="icon item">
+          <i class="right chevron icon"></i>
+        </a>
+      </div>
+    </th>
+    </tr>
+  </tfoot>
+</table>
+<hr>
+<div class="wrapper">
+  <div class="ui top attached label" style="position: relative!important;">
+    If Structure Directive
+  </div>
+  <div class="field">
+    <div class="ui checkbox">
+      <input type="checkbox"
+             id="showTableCheck"
+             [(ngModel)]="showTable">
+      <label for="showTableCheck" >Show Table</label>
+    </div>
+  </div>
+  <table class="ui celled table" *swIf="showTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index"
+        (click)="_selectedProduct = product"
+          [ngStyle]="{ 'color' : _selectedProduct == product ? 'purple' : ''}">
+        <td class="ui ribbon"
+          [ngClass]="{ 'label' : _selectedProduct == product }">{{ i + 1 }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="m-3">
+    <div class="ui top attached label" style="position: relative">
+      Description
+    </div>
+    <p>
+      <code>&lt;ng-template&gt;</code> contains the content that will be used by the structure directive.
+      You can pass a data to ng-template with property binding.
+      As you already know that, if you want to create Directive, you should decorate typescript class with <code>@Directive</code>.
+      After all, you need two object, <code>ViewContainerRef</code> which is responsible for managing the contents in the views and
+      <code>TemplateRef</code> which represents the content.
+    </p>
+  </div>
+
+  <div class="m-3 p-3">
+    <div class="ui bottom attached label" style="position: relative" >
+      code
+    </div>
+    <pre class="code-block">
+      import {{ '{' }}
+        Directive,
+        Input,
+        OnChanges,
+        SimpleChange,
+        TemplateRef,
+        ViewContainerRef}
+      from "@angular/core";
+
+      @Directive({{ '{' }}
+        selector: '[swIf]'
+      })
+      export class SwStructureIfDirective implements OnChanges{{ '{' }}
+        constructor(private viewContainer: ViewContainerRef,
+                    private template: TemplateRef&lt;Object>) {{ '{' }}}
+        @Input('swIf')
+        result: boolean;
+
+        ngOnChanges(changes: {{ '{' }}[key: string]: SimpleChange}): void {{ '{' }}
+          let change = changes['result'];
+          console.log(change);
+          if(!change.isFirstChange()&& !change.currentValue) {{ '{' }}
+            this.viewContainer.clear();
+          } else {{ '{' }}
+            this.viewContainer.createEmbeddedView(this.template);
+          }
+        }
+      }
+    </pre>
+
+    <div class="m-3">
+      <div class="ui top attached label" style="position: relative">
+        Description
+      </div>
+      <p>
+        You can use concise syntax by removing the template element and using asterisk.
+      </p>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="mt-3">
+  <div class="ui attached top label">
+    Iterating Structure Directive
+  </div>
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th colspan="4">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template [swForOf]="products" let-product>
+        <tr>
+          <td colspan="4">{{ product.name }}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+
+  <div class="m-3">
+    <div class="ui attached top label">
+      Description
+    </div>
+    <p class="p-2 border border-secondary">
+      For creating iterating structural directive, naming convention and <em>DataSource</em> is important.
+      The name of the attribute in the ng-template must end with Of for supporting the concise systax.
+      Secondly, when you creating template with <code>createEmbeddedView()</code>  you need give two arguments.
+      One is templateRef and second argument is the context object which provides the data.
+      Notice that the context has property of <code>$implicit</code>, which you need to provide
+    </p>
+
+    <pre class="code-block">
+      import {{ '{' }}
+      Directive,
+      Input,
+      OnInit,
+      TemplateRef,
+      ViewContainerRef}
+      from "@angular/core";
+
+
+      class Context {{ '{' }}
+        constructor(public $implicit: any) {{ '{' }}}
+      }
+
+      @Directive({{ '{' }}
+        selector: '[swForOf]'
+      })
+      export class SwForStructureDirective implements OnInit{{ '{' }}
+
+        constructor(private container: ViewContainerRef,
+                    private template: TemplateRef&lt;Object>){{ '{' }} }
+
+        @Input('swForOf')
+        data: any;
+
+        ngOnInit(): void {{ '{' }}
+          console.log(this.data);
+          this.container.clear();
+          for(let i=0; i&lt;this.data.length; i++) {{ '{' }}
+            this.container.createEmbeddedView(this.template,new Context(this.data[i]));
+          }
+        }
+      }
+    </pre>
+  </div>
+</div>
