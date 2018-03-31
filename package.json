@@ -45,8 +45,6 @@
     "codelyzer": "^4.0.1",
     "gulp": "^3.9.1",
     "gulp-header": "^2.0.5",
-
-
     "enhanced-resolve": "^3.3.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
