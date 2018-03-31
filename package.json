@@ -32,6 +32,7 @@
     "jquery": "^3.3.1",
     "rxjs": "^5.5.6",
     "semantic-ui": "^2.3.1",
+    "gulp-header": "1.8.2",
     "tether": "^1.4.3",
     "zone.js": "^0.8.19"
   },
