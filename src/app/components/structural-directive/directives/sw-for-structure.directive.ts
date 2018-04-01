@@ -17,7 +17,7 @@ export class SwForStructureDirective implements OnInit{
   data: any;
 
   ngOnInit(): void {
-    console.log(this.data);
+    //console.log(this.data);
     this.container.clear();
     for(let i=0; i<this.data.length; i++) {
       this.container.createEmbeddedView(this.template,new Context(this.data[i]));

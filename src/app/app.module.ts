@@ -17,6 +17,11 @@ import {
 import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
 import {SwIfStructureDirective} from "./components/structural-directive/directives/sw-if-structure.directive";
 import {SwForStructureDirective} from "./components/structural-directive/directives/sw-for-structure.directive";
+import { ComponentsComponent } from './components/components/components.component';
+import {SharedModule} from "./shared/shared.module";
+import { ProductTableComponent } from './components/components/product-table/product-table.component';
+import { ProductFormComponent } from './components/components/product-form/product-form.component';
+import { ToggleViewComponent } from './components/components/toggle-view/toggle-view.component';
 
 
 const routes: Routes = [
@@ -26,6 +31,7 @@ const routes: Routes = [
   {path: 'directive', component: DirectiveComponent },
   {path: 'custom-directive', component: CustomDirectiveComponent },
   {path: 'sdirective', component: StructuralDirectiveComponent },
+  {path: 'component', component: ComponentsComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
@@ -43,8 +49,13 @@ const routes: Routes = [
     StructuralDirectiveComponent,
     SwIfStructureDirective,
     SwForStructureDirective,
+    ComponentsComponent,
+    ProductTableComponent,
+    ProductFormComponent,
+    ToggleViewComponent,
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     ServiceModule,
     ReactiveFormsModule,

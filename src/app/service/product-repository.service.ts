@@ -1,11 +1,13 @@
 import {SimpleDatasource} from "./simple-datasource.service";
 import {Product} from "../model/product.model";
+import {EventEmitter} from "@angular/core";
 
 
 export class ProductRepository{
   private dataSource: SimpleDatasource;
   private products: Product[] = [];
   private locator = (_product: Product, _id: number) => { return _product.id == _id };
+  public productsChanged: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {
     this.dataSource = new SimpleDatasource();
@@ -23,6 +25,7 @@ export class ProductRepository{
     this.products.push(new Product(p.id, p.name, p.category, p.price));
     console.log(this.products);
   }
+
   getProducts(): Product[] {
     return this.products;
   }

@@ -1,0 +1,15 @@
+
+<div class="ui list mt-2">
+  <div class="item">
+    <i class="folder icon"></i>
+    <div class="content">
+      <div class="header">{{ chapter.title }}</div>
+      <div class="description">{{ chapter.description }}</div>
+      <ng-template *ngIf="chapter.childs" ></ng-template>
+      <app-list-item
+        *ngFor="let chapter_child of chapter.childs"
+        [chapter]="chapter_child"
+      ></app-list-item>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+
+
+.ui.attached {
+  position: relative;
+}
+
+:host {
+ margin-bottom: 250px;
+}

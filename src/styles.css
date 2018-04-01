@@ -17,6 +17,9 @@ mat-form-field {
   width: 100%;
 }
 
+.ui.attached {
+  position: relative;
+}
 body {
   font-size: .875rem;
   font-family: 'IBM Plex Mono', monospace;
@@ -28,8 +31,15 @@ body {
   vertical-align: text-bottom;
 }
 code {
-  border: 2px solid #9e9e9e;
-  background-color: #e4fdfa }
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 3px!important;
+  display: inline-block!important;
+  font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace!important;
+  font-size: 0.875em!important;
+  font-weight: bold!important;
+  padding: 1px 6px!important;
+  vertical-align: baseline!important;
+}
 /*
  * Sidebar
  */
@@ -46,8 +56,12 @@ code {
 
 pre.code-block {
   padding-top: 1rem;
+  padding-left: 2rem;
   border: 1px solid #dee2e6;
   background-color: #f8f9fa;
+  font-size: 1.2em;
+  line-height: 1.6em;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .sidebar-sticky {
   position: -webkit-sticky;

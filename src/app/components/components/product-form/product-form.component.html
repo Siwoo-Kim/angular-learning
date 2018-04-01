@@ -1,0 +1,42 @@
+<form class="ui form"
+      [formGroup]="form"
+      novalidate
+      (ngSubmit)="submitForm()">
+  <h4 class="ui header dividing">
+    New Product Registration
+  </h4>
+  <div class="two fields">
+      <mat-form-field class="field">
+        <input type="text"
+               matInput
+               [(ngModel)]="newProduct.name"
+               name="name"
+               formControlName="name">
+        <mat-hint>Enter Product Name</mat-hint>
+        <mat-error *ngIf="formSubmitted">Has Error</mat-error>
+      </mat-form-field>
+    <mat-form-field class="field">
+      <input type="number"
+             matInput
+             [(ngModel)]="newProduct.price"
+             name="price"
+             formControlName="price">
+      <mat-hint>Enter Product price</mat-hint>
+      <mat-error *ngIf="formSubmitted">Has Error</mat-error>
+    </mat-form-field>
+  </div>
+  <mat-form-field class="field">
+    <input type="category"
+           matInput
+           [(ngModel)]="newProduct.category"
+           name="category"
+           formControlName="category">
+    <mat-hint>Enter Product category</mat-hint>
+    <mat-error *ngIf="formSubmitted">Has Error</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary"
+          type="submit"
+          class="btn-block"
+          #btn
+  >Create</button>
+</form>

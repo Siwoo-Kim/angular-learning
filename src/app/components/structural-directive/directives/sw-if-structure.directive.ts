@@ -18,7 +18,6 @@ export class SwIfStructureDirective implements OnChanges{
 
   ngOnChanges(changes: {[key: string]: SimpleChange}): void {
     let change = changes['result'];
-    console.log(change);
     if(!change.isFirstChange()&& !change.currentValue) {
       this.viewContainer.clear();
     } else {

@@ -1,0 +1,116 @@
+
+
+<app-list-chapter [chapters]="chapters"></app-list-chapter>
+
+
+<h3 class="header ui">
+  Example Components
+</h3>
+<div class="row">
+  <div class="col-4">
+    <div class="ui top attached label">
+      Product Form Component
+    </div>
+    <app-product-form (newProductEvent)="addProduct($event)"></app-product-form>
+  </div>
+  <div class="col-8">
+    <div class="ui top attached label">
+      Product Table Component
+    </div>
+    <app-product-table [repository]="productRepository"></app-product-table>
+  </div>
+</div>
+
+<hr>
+<div class="ui top attached label">
+   {{ chapters[0].title }}
+</div>
+<div class="mt-3">
+  <p>
+    @Component decorator is used to define component. You can define template as inline or separate html file.
+  </p>
+</div>
+<hr>
+<div class="ui top attached label">
+  {{ chapters[2].title }}
+</div>
+<div class="mt-3">
+  <h3 class="ui dividing header">
+    Using Input properties to bind between components
+  </h3>
+  <p>
+    Components can define input properties like Directive to receive the data from Host Element(Parent Component).
+    To provide child component with data , Host Element use property binding.
+    ex) <code>&lt;product-table [data]="fromParent" >&lt;/product-table></code>
+  </p>
+  <pre class="code-block">
+    @Component({{ '{' }}
+      selector: 'app-product-table',
+      templateUrl: './product-table.component.html',
+      styleUrls: ['./product-table.component.css']
+    })
+    export class ProductTableComponent {{ '{' }}
+
+      @Input('repository')
+      productRepository: ProductRepository;
+
+      getProduct(id: number): Product {{ '{' }}
+        return this.productRepository.getProduct(id);
+      }
+
+      getProducts(): Product[]{{ '{' }}
+        return this.productRepository.getProducts().slice();
+      }
+
+      showTable: boolean = true;
+    }
+  </pre>
+
+  <h3 class="ui dividing header">
+    Using Ouput properties to bind between components
+  </h3>
+  <p>
+    Child components use output properties to define custom events to signal their changes to their parent.
+  </p>
+  <pre class="code-block">
+    export class ProductFormComponent {{ '{' }}
+      form: FormGroup;
+      newProduct: Product = new Product();
+      @Output('newProductEvent')
+      newProductEventEmitter :EventEmitter&lt;Product> = new EventEmitter&lt;Product>();
+      formSubmitted:boolean = false;
+
+      constructor() {{ '{' }}
+        this.form = new FormGroup({{ '{' }}
+          name: new FormControl('', Validators.required),
+          price: new FormControl('', Validators.required),
+          category: new FormControl('', Validators.required)
+        });
+      }
+
+      submitForm() {{ '{' }}
+        this.formSubmitted = true;
+        if(this.form.valid) {{ '{' }}
+          this.newProductEventEmitter.emit(this.newProduct);
+          this.newProduct = new Product();
+          this.form.reset();
+          this.formSubmitted = false;
+        }
+      }
+  </pre>
+
+  <h3 class="ui dividing header" >
+    Projecting Content into Parent
+  </h3>
+  <p>
+    Content Projection allows components to be created that combine the content projected from which parent content with and child content.
+  </p>
+  <div class="ui attached top label">
+    Example
+  </div>
+  <app-toggle-view style="height: 500px">
+    <app-product-table [repository]="productRepository"></app-product-table>
+  </app-toggle-view>
+
+</div>
+

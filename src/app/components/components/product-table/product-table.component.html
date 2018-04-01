@@ -1,0 +1,27 @@
+
+<mat-table #table class="ui table celled" [dataSource]="dataSource">
+  <ng-container  matColumnDef="position" >
+    <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+    <mat-cell *matCellDef="let el">{{ el.position }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let el">{{ el.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let el">{{ el.price }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+    <mat-cell *matCellDef="let el">{{ el.category }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="delete" >
+    <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+    <mat-cell *matCellDef="let el" (click)="delete(el)" > <div class="ui label bg-danger text-white">Delete</div> </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+
+</mat-table>
