@@ -18,7 +18,7 @@ export class PipesComponent implements OnInit, AfterViewInit {
   chapters: Chapter[] = [];
   selectedProduct: number = 0;
 
-  constructor(private productRepository: ProductRepository) {
+  constructor(public productRepository: ProductRepository) {
     this.chapters = [
       new Chapter(`Pipe's databinding`, 'Format a data value'),
       new Chapter(`@Pipe decorator`, 'Create a custom pipe'),
