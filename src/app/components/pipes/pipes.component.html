@@ -1,0 +1,142 @@
+
+<app-list-chapter title="Pipe" [chapters]="chapters"></app-list-chapter>
+
+<div class="ui top attached label">
+  Example
+</div>
+<div class="row">
+  <div class="col-6 col-sm-6">
+
+  </div>
+  <div class="col-6 col-sm-6">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>#No</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productRepository.getProducts();let i = index"
+            (click)="selectedProduct = i">
+          <td [ngClass]="{'ui ribbon label' : selectedProduct == i}">{{ i + 1}}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency : 'USD' : 'symbol' : '2.2-2' }}</td>
+          <td>{{ product.category }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr>
+<div class="ui top attached label" style="position: relative">
+  description
+</div>
+<div class="col-12 col-sm-12 pt-3">
+  <h4 class="header ui dividing">Pipe Basic</h4>
+  <div class="m-1">
+    <p>
+      Pipe transforms data before rendering to template.
+      Applying syntax use vertical bar <code>|</code>.
+      Also pipe has arguments with concat with <code>:</code>
+      Below is the built-in pipe which is provided from Angular.
+    </p>
+  </div>
+  <pre class="code-block">
+      &lt;td>{{ '{' }}{{ '{' }} product.price | currency : 'USD' : 'symbol' : '2.2-2' }}&lt;/td>
+  </pre>
+</div>
+
+<div class="ui top attached label">
+  Example
+</div>
+<div class="col-12 col-sm-12 text-center">
+  <div class="ui card">
+    <div class="content">
+      <div class="header">
+        {{ productRepository.getProduct(1).price | taxing : (taxRate || 0) | currency : 'USD' : 'symbol' : '2.2-2' }}
+      </div>
+    </div>
+  </div>
+  <mat-form-field class="field">
+    <mat-select placeholder="Taxrate" [(ngModel)]="taxRate" >
+      <mat-option value="0">0</mat-option>
+      <mat-option value="15">15</mat-option>
+      <mat-option value="30">30</mat-option>
+      <mat-option value="50">50</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<hr>
+<div class="ui top attached label" >
+  Description
+</div>
+<div class="col-12 col-sm-12 p-1">
+  <h4 class="header dividing ui m-2">
+    Custom Pipe
+  </h4>
+  <p>
+    Using <code>@Pipe decorator</code>, you can define custom pipes.
+    After that, you need to implement <code>transform</code> method.
+    You can implement an interface, <code>PipeTransform</code>, but that is not mandatory as <code>NgOnInit or NgChange</code>.
+    Notice that you can chaining the custome pipe with built-in pipe.
+  </p>
+
+  <pre class="code-block">
+    @Pipe({{ '{' }} name: 'taxing' })
+    export class TaxingPipe implements PipeTransform{{ '{' }}
+      defaultRate: number = 10;
+
+      transform(value: any, rate?: any): any {{ '{' }}
+        let valueNumber = Number.parseFloat(value);
+        let rateNumber = rate == undefined ? this.defaultRate : Number.parseFloat(rate);
+        return valueNumber + (valueNumber * (rateNumber / 100));
+      }
+    }
+  </pre>
+  <hr>
+  <pre class="code-block">
+    &lt;div class="ui card">
+      &lt;div class="content">
+        &lt;div class="header">
+          {{ '{' }}{{ '{' }} productRepository.getProduct(1).price | taxing : (taxRate || 0) | currency : 'USD' : 'symbol' : '2.2-2' }}
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  </pre>
+</div>
+
+
+<div class="ui top attached label">
+  Example
+</div>
+<div class="col-12 col-sm-12">
+  <table class="ui celled table">
+    <thead>
+    <tr>
+      <th>#No</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of productRepository.getProducts() | filter : 'category' : selectedCategory ;let i = index"
+        (click)="selectedProduct = i">
+      <td [ngClass]="{'ui ribbon label' : selectedProduct == i}">{{ i + 1}}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price | currency : 'USD' : 'symbol' : '2.2-2' }}</td>
+      <td>{{ product.category }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-form-field class="field">
+    <mat-select placeholder="Category"
+                [(ngModel)]="selectedCategory">
+      <mat-option [value]="category" *ngFor="let category of ['Watersports', 'Soccer', 'Chess']"> {{ category }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

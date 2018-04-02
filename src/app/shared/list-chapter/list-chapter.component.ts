@@ -8,6 +8,6 @@ import {Chapter} from "../../model/chapter.model";
 })
 export class ListChapterComponent {
   @Input() chapters: Chapter[];
-
+  @Input() title: string;
 
 }

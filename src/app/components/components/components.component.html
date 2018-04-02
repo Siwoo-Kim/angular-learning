@@ -1,19 +1,19 @@
 
 
-<app-list-chapter [chapters]="chapters"></app-list-chapter>
+<app-list-chapter title="Component" [chapters]="chapters"></app-list-chapter>
 
 
 <h3 class="header ui">
   Example Components
 </h3>
 <div class="row">
-  <div class="col-4">
+  <div class="col-4 col-sm-4">
     <div class="ui top attached label">
       Product Form Component
     </div>
     <app-product-form (newProductEvent)="addProduct($event)"></app-product-form>
   </div>
-  <div class="col-8">
+  <div class="col-8 col-sm-8">
     <div class="ui top attached label">
       Product Table Component
     </div>
@@ -111,6 +111,57 @@
   <app-toggle-view style="height: 500px">
     <app-product-table [repository]="productRepository"></app-product-table>
   </app-toggle-view>
+
+  <h3 class="ui dividing header">
+    Querying View Template
+  </h3>
+  <div class="ui attached label top">
+    Example
+  </div>
+
+  <button #listBtn class="btn-block" mat-raised-button (click)="toggleList()">Click</button>
+  <div #listExample class="col-12 m-4">
+    <h2 class="ui dividing header">
+      {{ title }}
+      <a class="anchor" id="components"></a>
+    </h2>
+    <app-list-item *ngFor="let chapter of examples"
+                   [chapter]="chapter"></app-list-item>
+  </div>
+  <hr>
+  <p>
+    Components can query the content in the template which is called <em>Veiw Children</em>
+    <code>@ViewChild</code> is for quering for the first directive and <code>$ViewChildren</code> will query for all the
+    directives. @ViewChildren return QueryList object.
+  </p>
+
+  <pre class="code-block">
+    @ViewChildren('listExample') viewChildren: QueryList&lt;ElementRef>;
+    $list;
+
+    ngAfterViewInit(): void {{ '{' }}
+      this.$list = $(this.viewChildren.first.nativeElement);
+      this.toggleList();
+    }
+
+    toggleList() {{ '{' }}
+      let height = this.$list.height();
+      setTimeout(()=>{{ '{' }}
+        this.$list.animate({{ '{' }}
+          opacity: 0,
+          height: 0,
+        },500);
+      },0);
+
+      setTimeout(()=>{{ '{' }}
+        this.$list.animate({{ '{' }}
+          opacity: 1,
+          height: height,
+        },1500);
+      },500);
+    }
+  </pre>
+
 
 </div>
 

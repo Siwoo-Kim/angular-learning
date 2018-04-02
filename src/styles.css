@@ -18,8 +18,9 @@ mat-form-field {
 }
 
 .ui.attached {
-  position: relative;
+  position: relative !important;
 }
+
 body {
   font-size: .875rem;
   font-family: 'IBM Plex Mono', monospace;

@@ -8,7 +8,10 @@ import {DirectiveComponent} from "./components/directive.component";
 import { EventBindingComponent } from './components/event-binding/event-binding/event-binding.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSortModule, MatTableModule} from "@angular/material";
+import {
+  MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSortModule,
+  MatTableModule
+} from "@angular/material";
 import { FormComponent } from './components/form/form.component';
 import { CustomDirectiveComponent } from './components/custom-directive/custom-directive.component';
 import {
@@ -22,6 +25,7 @@ import {SharedModule} from "./shared/shared.module";
 import { ProductTableComponent } from './components/components/product-table/product-table.component';
 import { ProductFormComponent } from './components/components/product-form/product-form.component';
 import { ToggleViewComponent } from './components/components/toggle-view/toggle-view.component';
+import { PipesComponent } from './components/pipes/pipes.component';
 
 
 const routes: Routes = [
@@ -32,6 +36,7 @@ const routes: Routes = [
   {path: 'custom-directive', component: CustomDirectiveComponent },
   {path: 'sdirective', component: StructuralDirectiveComponent },
   {path: 'component', component: ComponentsComponent },
+  {path: 'pipe', component: PipesComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
@@ -53,6 +58,7 @@ const routes: Routes = [
     ProductTableComponent,
     ProductFormComponent,
     ToggleViewComponent,
+    PipesComponent,
   ],
   imports: [
     SharedModule,
@@ -65,6 +71,7 @@ const routes: Routes = [
     MatButtonModule,
     MatTableModule,
     MatSortModule,
+    MatSelectModule,
     MatFormFieldModule,
     RouterModule.forRoot(routes),
   ],
