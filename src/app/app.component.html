@@ -1,5 +1,5 @@
 
-<nav class="navbar bg-white sticky-top flex-md-nowrap p-0">
+<nav class="navbar sticky-top flex-md-nowrap p-0">
   <a class="col-sm-3 col-md-2 mr-0" href="#">
     <h2 class="ui center aligned" >
       <i class="circular angular icon"></i>
@@ -68,6 +68,11 @@
              routerLinkActive="active">
             Pipe <span class="sr-only">(current)</span>
           </a>
+          <a class="nav-link item"
+             routerLink="servicing"
+             routerLinkActive="active">
+            Services <span class="sr-only">(current)</span>
+          </a>
         </div>
       </div>
       <a class="item">
@@ -86,7 +91,7 @@
         </div>
       </div>
     </div>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="font-family: 'IBM Plex Mono', monospace;">
+    <main role="main" class="col-md-9 col-sm-9 col-lg-9 pt-3 px-4" style="font-family: 'IBM Plex Mono', monospace;">
       <router-outlet></router-outlet>
     </main>
   </div>

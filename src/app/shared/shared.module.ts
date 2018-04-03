@@ -6,12 +6,16 @@ import {ListChapterItemComponent} from "./list-chapter/list-chapter-item/list-ch
 import {MatTableModule} from "@angular/material";
 import {TaxingPipe} from "./taxing.pipe";
 import {FilterPipe} from "./filter.pipe";
+import {SummaryComponent} from "./summary/summary.component";
+import {DiscountPipe} from "../pipe/discount.pipe";
 
 const components: any[] = [
   ListChapterComponent,
   ListChapterItemComponent,
+  SummaryComponent,
   TaxingPipe,
   FilterPipe,
+  DiscountPipe,
 ];
 
 @NgModule({

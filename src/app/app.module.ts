@@ -26,6 +26,9 @@ import { ProductTableComponent } from './components/components/product-table/pro
 import { ProductFormComponent } from './components/components/product-form/product-form.component';
 import { ToggleViewComponent } from './components/components/toggle-view/toggle-view.component';
 import { PipesComponent } from './components/pipes/pipes.component';
+import { ServicingComponent } from './components/servicing/servicing.component';
+import { DiscountDisplayComponent } from './components/servicing/discount-display/discount-display.component';
+import { DiscountEditorComponent } from './components/servicing/discount-editor/discount-editor.component';
 
 
 const routes: Routes = [
@@ -37,6 +40,7 @@ const routes: Routes = [
   {path: 'sdirective', component: StructuralDirectiveComponent },
   {path: 'component', component: ComponentsComponent },
   {path: 'pipe', component: PipesComponent },
+  {path: 'servicing', component: ServicingComponent },
   {path: '**', redirectTo: 'product'},
 ];
 
@@ -59,6 +63,9 @@ const routes: Routes = [
     ProductFormComponent,
     ToggleViewComponent,
     PipesComponent,
+    ServicingComponent,
+    DiscountDisplayComponent,
+    DiscountEditorComponent,
   ],
   imports: [
     SharedModule,

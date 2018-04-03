@@ -1,0 +1,138 @@
+<app-summary title="Service" [chapters]="chapters"></app-summary>
+
+
+<div class="ui grid two row">
+  <div class="three wide column">
+    <div>
+      <h4 class="ui dividing header mt-3">Register</h4>
+      <mat-form-field class="field">
+        <input type="text" matInput placeholder="Name">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input type="text" matInput placeholder="Price">
+      </mat-form-field>
+      <mat-form-field class="field">
+        <input type="text" matInput placeholder="Category">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Create</button>
+    </div>
+  </div>
+  <div class="thirteen wide column">
+    <table class="ui table celled">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of productRepository.getProducts();let i = index">
+        <td>{{ i + 1}}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price | discount | currency : 'USD' : 'symbol' : '2.2-2' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr>
+<div class="ui grid">
+  <div class="column eight wide">
+    <!--<app-discount-display [discounter]="discounter"></app-discount-display>-->
+    <app-discount-display></app-discount-display>
+  </div>
+  <div class="column eight wide">
+    <!--<app-discount-editor [discounter]="discounter"></app-discount-editor>-->
+    <app-discount-editor></app-discount-editor>
+  </div>
+</div>
+<hr>
+<div class="label ui attached top">
+  Description
+</div>
+<div class="ui text mt-3">
+  <h4 class="ui header dividing">Service Basic</h4>
+  <p>
+    First, think about why we need a service. You can deliver each component's status(data) to his child or parent by
+    <code>@Input</code>, <code>@Output</code>. This mechanism, angular provides, is excellent but has one drawback.
+    Because the components deliver it's status explicitly to other component, it increase coupling which will result as
+    complexity in an application.
+    Below is the coupling code. And think about why it matters.
+  </p>
+
+  <pre class="code-block">
+    &lt;div class="column eight wide">
+      &lt;app-discount-display [discounter]="discounter">&lt;/app-discount-display>
+    &lt;/div>
+    &lt;div class="column eight wide">
+      &lt;app-discount-editor [discounter]="discounter">&lt;/app-discount-editor>
+    &lt;/div>
+    <hr>
+      @Component({{ '{' }}{{ '{' }} '{{ '{' }}' }}
+        selector: 'app-discount-display',
+        templateUrl: './discount-display.component.html',
+        styleUrls: ['./discount-display.component.css']
+      })
+      export class DiscountDisplayComponent{{ '{' }}{{ '{' }} '{{ '{' }}' }}
+        @Input() public discounter: DiscountService;
+
+        constructor(){{ '{' }}{{ '{' }} '{{ '{' }}' }}}
+      }
+  </pre>
+  <p class="mt-3">
+    In the case, the component providing Object through property binding to each child's component.
+    The component need to know where to inject and what Object he is created.
+    If you need to place the <code>DiscountDisplayComponent</code> to another place, it will be difficult.
+    So, how to shared the one instance of object to the components in the application?
+    Angular provides, @Injectable decorator(Actually, it is not mandatory unless the object has dependency), and
+    provides attribute in the module.
+  </p>
+
+  <pre class="code-block">
+    @Component({{ '{' }}{{ '{' }} '{{ '{' }}' }}
+      selector: 'app-discount-editor',
+      templateUrl: './discount-editor.component.html',
+      styleUrls: ['./discount-editor.component.css']
+    })
+    export class DiscountEditorComponent {{ '{' }}
+      //@Input() public discounter: DiscountService;
+
+      constructor(public discounter: DiscountService){{ '{' }}} //constructor binding
+    }
+    <hr>
+    @NgModule({{ '{' }}
+      providers: [
+        SimpleDatasource,
+        ProductRepository,
+        DiscountService,
+      ],
+    })
+    export class ServiceModule{{ '{' }} }
+  </pre>
+
+  <p>
+    You can inject an object to <a routerLink="/pipe">an pipe</a>, too.
+    Notice that, if you want to detect the change the status in the pipe, you need to change the value of
+    <code>pure property</code> to false.
+  </p>
+
+  <p class="code-block">
+    @Pipe({{ '{' }}
+    name: 'discount',
+    pure: false,
+    })
+    export class DiscountPipe implements PipeTransform{{ '{' }}
+
+    constructor(private discounter: DiscountService) {{ '{' }}}
+
+    transform(price: number): any {{ '{' }}
+    return this.discounter.discount(price);
+    }
+
+    }
+
+  </p>
+</div>
