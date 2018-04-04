@@ -26,9 +26,9 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../semantic/dist/semantic.min.js",
         "../node_modules/tether/dist/js/tether.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../semantic/dist/semantic.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -14,86 +14,76 @@
   </ul>
 </nav>
 
-<div class="container-fluid">
+
+<div class="ui grid container-fluid">
   <div class="row">
-    <div class="ui vertical menu col-2 col-sm-2">
-      <div class="item">
-        <div class="ui input"><input type="text" placeholder="Search..."></div>
-      </div>
-      <div class="item">
-        Basic
-        <div class="menu">
-          <a class="nav-link item"
-             routerLink="databinding"
-             routerLinkActive="active">
-            <span data-feather="home"></span>
-            Databinding <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="directive"
-             routerLinkActive="active">
-            <span data-feather="home"></span>
-            Directive <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="event"
-             routerLinkActive="active">
-            <span data-feather="home"></span>
-            Event <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="form"
-             routerLinkActive="active">
-            <span data-feather="home"></span>
-            Form <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="custom-directive"
-             routerLinkActive="active">
-            <span data-feather="home"></span>
-            Custom Directive <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="sdirective"
-             routerLinkActive="active">
-            Structural-directive <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="component"
-             routerLinkActive="active">
-            Component <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="pipe"
-             routerLinkActive="active">
-            Pipe <span class="sr-only">(current)</span>
-          </a>
-          <a class="nav-link item"
-             routerLink="servicing"
-             routerLinkActive="active">
-            Services <span class="sr-only">(current)</span>
-          </a>
+    <div class="three wide column">
+      <div class="ui vertical menu col-2 col-sm-auto">
+        <div class="item">
+          <div class="ui input"><input type="text" placeholder="Search..."></div>
         </div>
-      </div>
-      <a class="item">
-        <i class="grid layout icon"></i> Disable
-      </a>
-      <a class="item">
-        Disable
-      </a>
-      <div class="ui dropdown item">
-        Disable
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item"><i class="edit icon"></i> Edit Profile</a>
-          <a class="item"><i class="globe icon"></i> Choose Language</a>
-          <a class="item"><i class="settings icon"></i> Account Settings</a>
+        <div class="ui item dropdown">
+          Basic
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="nav-link item"
+               routerLink="basic/databinding"
+               routerLinkActive="active">
+              <span data-feather="home"></span>
+              Databinding <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/directive"
+               routerLinkActive="active">
+              <span data-feather="home"></span>
+              Directive <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/event"
+               routerLinkActive="active">
+              <span data-feather="home"></span>
+              Event <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/form"
+               routerLinkActive="active">
+              <span data-feather="home"></span>
+              Form <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/custom-directive"
+               routerLinkActive="active">
+              <span data-feather="home"></span>
+              Custom Directive <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/sdirective"
+               routerLinkActive="active">
+              Structural-directive <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/component"
+               routerLinkActive="active">
+              Component <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/pipe"
+               routerLinkActive="active">
+              Pipe <span class="sr-only">(current)</span>
+            </a>
+            <a class="nav-link item"
+               routerLink="basic/servicing"
+               routerLinkActive="active">
+              Services <span class="sr-only">(current)</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    <main role="main" class="col-md-9 col-sm-9 col-lg-9 pt-3 px-4" style="font-family: 'IBM Plex Mono', monospace;">
-      <router-outlet></router-outlet>
-    </main>
+    <div class="thirteen wide column">
+      <main role="main" class="col-md-9 col-sm-8 col-sm-auto col-lg-9 pt-3 px-4" style="font-family: 'IBM Plex Mono', monospace;">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   </div>
 </div>
-

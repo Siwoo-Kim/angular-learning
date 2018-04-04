@@ -29,50 +29,24 @@ import { PipesComponent } from './components/pipes/pipes.component';
 import { ServicingComponent } from './components/servicing/servicing.component';
 import { DiscountDisplayComponent } from './components/servicing/discount-display/discount-display.component';
 import { DiscountEditorComponent } from './components/servicing/discount-editor/discount-editor.component';
+import {BasicModule} from "./components/basic.module";
+import {BasicMainComponent} from "./components/basic-main/basic-main.component";
 
 
 const routes: Routes = [
-  {path: 'form', component: FormComponent },
-  {path: 'event', component: EventBindingComponent },
-  {path: 'databinding', component: DataBindingComponent },
-  {path: 'directive', component: DirectiveComponent },
-  {path: 'custom-directive', component: CustomDirectiveComponent },
-  {path: 'sdirective', component: StructuralDirectiveComponent },
-  {path: 'component', component: ComponentsComponent },
-  {path: 'pipe', component: PipesComponent },
-  {path: 'servicing', component: ServicingComponent },
-  {path: '**', redirectTo: 'product'},
+  {path: 'basic', component: BasicMainComponent},
+  {path: '**', redirectTo: 'basic'},
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DataBindingComponent,
-    DirectiveComponent,
-    EventBindingComponent,
-    FormComponent,
-    CustomDirectiveComponent,
-    SwBackgroundAttribute,
-    SwProductAttribute,
-    SwModelAttribute,
-    StructuralDirectiveComponent,
-    SwIfStructureDirective,
-    SwForStructureDirective,
-    ComponentsComponent,
-    ProductTableComponent,
-    ProductFormComponent,
-    ToggleViewComponent,
-    PipesComponent,
-    ServicingComponent,
-    DiscountDisplayComponent,
-    DiscountEditorComponent,
+    AppComponent
   ],
   imports: [
+    BasicModule,
     SharedModule,
     BrowserModule,
     ServiceModule,
-    ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
