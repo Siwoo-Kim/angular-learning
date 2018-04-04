@@ -1,6 +1,6 @@
 
 <nav class="navbar sticky-top flex-md-nowrap p-0">
-  <a class="col-sm-3 col-md-2 mr-0" href="#">
+  <a class="col-sm-3 col-md-2 mr-0" routerLink="/" routerLinkActive="active">
     <h2 class="ui center aligned" >
       <i class="circular angular icon"></i>
       Angular5
@@ -26,59 +26,66 @@
           Basic
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/databinding"
                routerLinkActive="active">
               <span data-feather="home"></span>
-              Databinding <span class="sr-only">(current)</span>
+              Databinding
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/directive"
                routerLinkActive="active">
               <span data-feather="home"></span>
-              Directive <span class="sr-only">(current)</span>
+              Directive
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/event"
                routerLinkActive="active">
               <span data-feather="home"></span>
-              Event <span class="sr-only">(current)</span>
+              Event
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/form"
                routerLinkActive="active">
               <span data-feather="home"></span>
-              Form <span class="sr-only">(current)</span>
+              Form
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/custom-directive"
                routerLinkActive="active">
               <span data-feather="home"></span>
-              Custom Directive <span class="sr-only">(current)</span>
+              Custom Directive
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/sdirective"
                routerLinkActive="active">
-              Structural-directive <span class="sr-only">(current)</span>
+              Structural-directive
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/component"
                routerLinkActive="active">
-              Component <span class="sr-only">(current)</span>
+              Component
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/pipe"
                routerLinkActive="active">
-              Pipe <span class="sr-only">(current)</span>
+              Pipe
             </a>
-            <a class="nav-link item"
+            <a class="item"
                routerLink="basic/servicing"
                routerLinkActive="active">
-              Services <span class="sr-only">(current)</span>
+              Services
             </a>
           </div>
-        </div>
-      </div>
+        </div> <!--dropdown-->
+        <div class="ui dropdown item">
+          Basic-Project
+          <div class="dropdown icon"></div>
+          <div class="menu">
+            <a class="item" routerLink="basic-project" routerLinkActive="active" >Main</a>
+          </div>
+        </div><!--dropdown-->
+      </div> <!--menu-->
     </div>
     <div class="thirteen wide column">
       <main role="main" style="font-family: 'IBM Plex Mono', monospace;">

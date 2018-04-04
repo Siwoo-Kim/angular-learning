@@ -3,7 +3,10 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ListChapterItemComponent} from "./list-chapter/list-chapter-item/list-chapter-item.component";
-import {MatTableModule} from "@angular/material";
+import {
+  MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSortModule,
+  MatTableModule
+} from "@angular/material";
 import {TaxingPipe} from "./taxing.pipe";
 import {FilterPipe} from "./filter.pipe";
 import {SummaryComponent} from "./summary/summary.component";
@@ -16,15 +19,33 @@ const components: any[] = [
   TaxingPipe,
   FilterPipe,
   DiscountPipe,
+  MatInputModule,
+  MatButtonModule,
+  MatTableModule,
+  MatSortModule,
+  MatSelectModule,
+  MatFormFieldModule,
 ];
 
 @NgModule({
   imports: [
+    MatButtonModule,
     CommonModule,
-    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule,
     MatTableModule,
+    MatSortModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
-  declarations: components,
+  declarations: [
+    ListChapterComponent,
+    ListChapterItemComponent,
+    SummaryComponent,
+    TaxingPipe,
+    FilterPipe,
+    DiscountPipe,
+  ],
   exports: components,
 })
 export class SharedModule{ }
