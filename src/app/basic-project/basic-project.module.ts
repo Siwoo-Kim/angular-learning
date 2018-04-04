@@ -7,6 +7,7 @@ import {CommonModule} from "@angular/common";
 import {BasicProjectService} from "./service/basic-project-service.module";
 import {SharedModule} from "../shared/shared.module";
 import { BasicProjectFormComponent } from './main/basic-project-form/basic-project-form.component';
+import { BasicMessageComponent } from './main/basic-message/basic-message.component';
 
 const routes: Routes = [
   {path: 'basic-project', component: BasicProjectMainComponent }
@@ -17,6 +18,7 @@ const routes: Routes = [
     BasicProjectTable,
     BasicProjectMainComponent,
     BasicProjectFormComponent,
+    BasicMessageComponent,
   ],
   imports: [
     SharedModule,
