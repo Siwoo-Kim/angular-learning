@@ -8,6 +8,7 @@ import {BasicModule} from "./components/basic.module";
 import {BasicMainComponent} from "./components/basic-main/basic-main.component";
 import {BasicProjectModule} from "./basic-project/basic-project.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MainModule} from "./main/main.module";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     AppComponent
   ],
   imports: [
+    MainModule,
     BasicProjectModule,
     BrowserAnimationsModule,
     BasicModule,
