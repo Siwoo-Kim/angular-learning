@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 
 declare var $: any;
 @Component({
@@ -8,10 +8,14 @@ declare var $: any;
 })
 export class IntroComponent implements AfterViewInit {
   @ViewChild('closeableIcon') closeableIcon : ElementRef;
+  @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   ngAfterViewInit(): void {
+    var closed = this.closed;
     $(this.closeableIcon.nativeElement).on('click', function () {
       $(this).closest('.text.container').transition('fade');
+      setTimeout(()=>{closed.emit(true);},1000);
+
     })
   }
 

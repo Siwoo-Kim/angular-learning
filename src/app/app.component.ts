@@ -6,6 +6,7 @@ declare var $: any;
   templateUrl: './app.component.html',
 })
 export class AppComponent implements AfterViewInit{
+  childClosed: boolean = false;
 
   ngAfterViewInit(): void {
     $('.ui.dropdown').dropdown();

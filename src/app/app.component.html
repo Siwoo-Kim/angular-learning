@@ -2,9 +2,9 @@
 
 
 <div class="ui grid container-fluid stackable" style="margin-top: 7em;">
-  <div class="row bg-light">
-    <div class="ten wide column centered">
-      <app-intro></app-intro>
+  <div class="row bg-light"*ngIf="!childClosed">
+    <div class="ten wide column centered" >
+      <app-intro (closed)="childClosed = $event" ></app-intro>
     </div>
   </div>
   <div class="row">
