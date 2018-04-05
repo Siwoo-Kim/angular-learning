@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {SHARED_STATE, SharedState} from "../../../model/shared-state.model";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'basic-project-main',
@@ -8,4 +10,6 @@ import { Component, OnInit } from '@angular/core';
 export class BasicProjectMainComponent {
 
 
+  constructor(@Inject(SHARED_STATE) public stateEvents: Observable<SharedState>) {
+  }
 }

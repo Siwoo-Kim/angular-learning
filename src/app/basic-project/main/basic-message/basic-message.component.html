@@ -1,6 +1,6 @@
 
-<div class="ui info message" *ngIf="lastMessage">
-  <i class="close icon" ></i>
+<div class="ui info message m-5" *ngIf="hasMessage" [ngClass]="{'error' : lastMessage.error }">
+  <i class="close icon closableIcon" (click)="closeMessage()" #icon ></i>
   <div class="header">Message From Server</div>
-  <p> {{ lastMessage }}</p>
+  <p> {{ lastMessage ? lastMessage.text : '' }}</p>
 </div>

@@ -1,17 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Message} from "../model/message.model";
+import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class BasicProjectMessageService {
-  private handler: (_message: Message) => void;
+  private messageSubject = new Subject<Message>();
 
-  report(message: Message) {
-    if(this.handler != null) {
-      this.handler(message);
-    }
+  reportMessage(message: Message) {
+    this.messageSubject.next(message); //발행
   }
 
-  setHandler(handler: (_message: Message) => void) {
-    this.handler = handler;
+  get message(): Observable<Message> {
+    return this.messageSubject; //구독가능한 이벤트-데이터소스 리턴
   }
+
 }

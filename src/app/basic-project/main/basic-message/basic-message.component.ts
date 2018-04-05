@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BasicProjectMessageService} from "../../../service/basic-project-message.service";
 import {Message} from "../../../model/message.model";
 declare var $: any;
@@ -10,19 +10,31 @@ declare var $: any;
 })
 export class BasicMessageComponent implements OnInit, AfterViewInit {
   lastMessage: Message;
-  closed: boolean = false;
+  hasMessage: boolean = false;
 
   constructor(private messageService: BasicProjectMessageService) {
-    messageService.setHandler((_message => this.lastMessage = _message));
-  }
-
-  ngAfterViewInit(): void {
-    $('.message .close').on('click', function () {
-      $(this).closest('.message').transition('fade');
+    messageService.message.subscribe(message => {
+      this.lastMessage = message;
+      this.hasMessage = this.lastMessage.text != "" ;
+      setTimeout(()=>{
+        $(this).closest('.message').transition('fade');
+        this.closeMessage();
+      },2000);
     });
+
+    var value = this.hasMessage;
+    $(document).on('click','i.closableIcon', function () {
+      $(this).closest('.message').transition('fade');
+      value=false;
+    });
+
   }
 
-  ngOnInit() {
+  ngAfterViewInit(){}
 
+  ngOnInit() {}
+
+  closeMessage() {
+    setTimeout(() => this.hasMessage = false, 2000);
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {BasicProjectProductRepository} from "../../service/basic-project-product-repository.service";
 import {SharedModule} from "../../../shared/shared.module";
 import {Product} from "../../../model/product.model";
-import {MODES, SharedState} from "../../../model/shared-state.model";
+import {MODES, SHARED_STATE, SharedState} from "../../../model/shared-state.model";
+import {Observer} from "rxjs/Observer";
 
 @Component({
   selector: 'basic-project-table',
@@ -13,7 +14,7 @@ export class BasicProjectTable {
   selectedProduct: Product = this.getProduct(1);
 
   constructor(private projectRepository: BasicProjectProductRepository,
-              private state: SharedState) {}
+              @Inject(SHARED_STATE) private stateObserver: Observer<SharedState>) {}
 
   getProduct(id: number): Product {
     return this.projectRepository.getProduct(id);
@@ -29,12 +30,14 @@ export class BasicProjectTable {
   }
 
   editProduct(id: number) {
-    this.state.id = id;
-    this.state.mode = MODES.EDIT;
+    // this.state.id = id;
+    // this.state.mode = MODES.EDIT;
+    this.stateObserver.next(new SharedState(MODES.EDIT, id));
   }
 
   createProduct() {
-    this.state.id = undefined;
-    this.state.mode = MODES.CREATE;
+    // this.state.id = undefined;
+    // this.state.mode = MODES.CREATE;
+    this.stateObserver.next(new SharedState(MODES.CREATE));
   }
 }
