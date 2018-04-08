@@ -1,11 +1,13 @@
 import {ListChapterComponent} from "./list-chapter/list-chapter.component";
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ListChapterItemComponent} from "./list-chapter/list-chapter-item/list-chapter-item.component";
 import {
-  MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSortModule,
-  MatTableModule
+  MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule,
+  MatSelectModule,
+  MatSortModule,
+  MatTableModule,
+  MatCheckboxModule, MatSidenavModule, MatToolbarModule,
 } from "@angular/material";
 import {TaxingPipe} from "./taxing.pipe";
 import {FilterPipe} from "./filter.pipe";
@@ -23,20 +25,31 @@ const components: any[] = [
   MatButtonModule,
   MatTableModule,
   MatSortModule,
+  MatIconModule,
   MatSelectModule,
   MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatSidenavModule,
 ];
 
 @NgModule({
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatButtonModule,
     CommonModule,
     MatInputModule,
     MatButtonModule,
     MatTableModule,
     MatSortModule,
-    MatSelectModule,
-    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSidenavModule,
   ],
   declarations: [
     ListChapterComponent,

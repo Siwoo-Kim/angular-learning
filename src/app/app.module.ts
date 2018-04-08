@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import {ServiceModule} from "./service/service.module";
@@ -9,6 +9,10 @@ import {BasicMainComponent} from "./components/basic-main/basic-main.component";
 import {BasicProjectModule} from "./basic-project/basic-project.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MainModule} from "./main/main.module";
+import {MaterialModule} from "./material/material.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {JSON_SERVER_URL, REST_URL} from "./app.token";
+import {MainErrorHandler} from "./service/main-error-handler.service";
 
 
 const routes: Routes = [
@@ -21,6 +25,8 @@ const routes: Routes = [
     AppComponent
   ],
   imports: [
+    FlexLayoutModule,
+    MaterialModule,
     MainModule,
     BasicProjectModule,
     BrowserAnimationsModule,
@@ -30,7 +36,10 @@ const routes: Routes = [
     ServiceModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [
+
+    {provide: REST_URL, useValue: JSON_SERVER_URL }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

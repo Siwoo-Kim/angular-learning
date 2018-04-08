@@ -1,0 +1,11 @@
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+mat-form-field{
+  width: 300px;
+}
+
+mat-sidenav {
+  width: 200px;
+}

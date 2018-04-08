@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class BasicProjectMessageService {
-  private messageSubject = new Subject<Message>();
+  messageSubject = new Subject<Message>();
 
   reportMessage(message: Message) {
     this.messageSubject.next(message); //발행

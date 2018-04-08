@@ -1,19 +1,19 @@
-import {SimpleDatasource} from "./simple-datasource.service";
 import {Product} from "../model/product.model";
-import {EventEmitter} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
+import {RestDatasource} from "./rest-datasource.service";
 
-
+@Injectable()
 export class ProductRepository{
-  private dataSource: SimpleDatasource;
+  // private dataSource: SimpleDatasource;
   private products: Product[] = [];
   private locator = (_product: Product, _id: number) => { return _product.id == _id };
   public productsChanged: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {
-    this.dataSource = new SimpleDatasource();
-    this.dataSource.getProducts().forEach((_product: Product) => {
-      this.products.push(_product);
-    });
+  constructor(public dataSource: RestDatasource) {
+    // this.dataSource = new SimpleDatasource();
+    this.dataSource.get('products').subscribe(data => {
+      this.products = data;
+    })
   }
 
   /**
@@ -39,13 +39,22 @@ export class ProductRepository{
   }
 
   saveProduct(product: Product) {
-    if(!(product.id) || product.id == 0) {
-      product.id = this.generateID();
-      this.products.push(product);
+    if(product.id == 0 || product.id == null) {
+      this.dataSource.post('products', product).subscribe(product => this.products.push(product) );
     } else {
-      let index = this.products.findIndex((_product: Product) => this.locator(_product,product.id) );
-      this.products.splice(index,1,product);
+      this.dataSource.put(`products/${product.id}`, product).subscribe( product => {
+        console.log(product);
+        let index = this.products.findIndex(_product => this.locator(_product, product.id));
+        this.products.splice(index, 1, product);
+      })
     }
+  }
+
+  deleteProduct(product: Product) {
+    this.dataSource.delete(`/products/${product.id}`).subscribe(() => {
+      let index = this.products.findIndex(_product => _product.id == product.id );
+      this.products.splice(index, 1);
+    })
   }
 
   private generateID(): number {

@@ -1,5 +1,5 @@
 
-<div class="ui segment">
+<div class="ui segment doubling stackable">
   <h2 class="ui right floated header">Submit Form</h2>
   <div class="ui clearing divider"></div>
   <div class="container">
@@ -37,9 +37,15 @@
         <button class="btn-block mt-1"
                 type="submit"
                 [disabled]="form.invalid"
-          mat-raised-button color="primary"> {{editing ? 'Edit' : 'Create'}}</button>
+                mat-raised-button
+                color="primary"> {{editing ? 'Edit' : 'Create'}}</button>
+        <button class="btn-block mt-1 red"
+                type="reset"
+                mat-raised-button>Reset</button>
         <button class="btn-block mt-1"
-                type="reset" mat-raised-button color="accent">Reset</button>
+                mat-raised-button
+                routerLink="/basic-project/">Cancel</button>
+
       </form>
     </div>
   </div>

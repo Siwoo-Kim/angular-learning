@@ -1,26 +1,36 @@
-<table class="ui celled stackable table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Price</th>
-      <th>#</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of getProducts();"
-      (click)="selectedProduct = product">
-      <td [ngClass]="{'ui label ribbon pink' : selectedProduct == product}">
-        {{ product.id }}
-      </td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.category }}</td>
-      <td>{{ product.price | currency : 'USD' : 'symbol' : '2.2-2' }}</td>
-      <td class="text-center">
-        <button mat-raised-button (click)="editProduct(product.id)">Edit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button mat-raised-button class="btn-block" (click)="createProduct()">Create</button>
+<div class="ui container">
+  <table class="ui celled stackable table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of getProducts();"
+        (click)="selectedProduct = product">
+        <td [ngClass]="{'ui label ribbon pink' : selectedProduct == product}">
+          {{ product.id }}
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price | currency : 'USD' : 'symbol' : '2.2-2' }}</td>
+        <td class="text-center">
+          <button mat-raised-button
+                  [routerLink]="['form','edit', product.id,
+                  {
+                    name: product.name,
+                    category: product.category,
+                    price: product.price
+                  }]" >Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button mat-raised-button
+          class="btn-block"
+          [routerLink]="['form','create']">Create</button>
+</div>

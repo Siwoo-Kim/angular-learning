@@ -1,0 +1,76 @@
+
+<section class="signup-form">
+  <form
+    #f="ngForm"
+    (ngSubmit)="submitForm(f)"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="3px">
+    <mat-form-field>
+      <input
+        type="email"
+        placeholder="Your email"
+        matInput
+        name="email"
+        ngModel
+        required
+        #emailInput="ngModel"
+        email>
+        <mat-hint>Enter your email</mat-hint>
+        <i class="ui icon mail" matSuffix></i>
+        <mat-error *ngIf="!emailInput.hasError('required')">No Empty String</mat-error>
+        <mat-error *ngIf="!emailInput.hasError('email')">E-mail is invalid</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="password"
+        ngModel
+        name="password"
+        matInput
+        minlength="6"
+        required
+        #pwInput="ngModel"
+        placeholder="Your password">
+        <mat-hint> Enter Your name </mat-hint>
+        <i class="ui icon angular" matSuffix></i>
+        <mat-hint align="end"> {{ pwInput.value?.length }} / 6</mat-hint>
+        <mat-error *ngIf="!pwInput.hasError('minlength')">Has to be longer than 6</mat-error>
+        <mat-error *ngIf="!pwInput.hasError('required')">Missing Password</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             [matDatepicker]="picker"
+             ngModel
+             name="age"
+             placeholder="Your birthdate"
+             [max]="maxDate"
+             required>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-checkbox ngModel name="agree" color="primary" required><b>Agree Condition</b></mat-checkbox>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+  </form>
+</section>
+
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <p>I'm in the sidenav</p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button (click)="sidenav.toggle()">Show Sidenav</button>
+    <mat-toolbar color="primary">My Toolbar</mat-toolbar>
+      <div><button (click)="onToggle()">Toggle Sidenav</button></div>
+      <div>LOGO</div>
+      <div>
+        <a routerLink="login"></a>
+        <a routerLink="singup"></a>
+        <a routerLink="training"></a>
+      </div>
+    <p>
+      Something goes here
+    </p>
+  </mat-sidenav-content>
+</mat-sidenav-container>

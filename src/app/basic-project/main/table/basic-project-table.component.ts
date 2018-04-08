@@ -10,10 +10,10 @@ import {Observer} from "rxjs/Observer";
   templateUrl: './basic-project-table.component.html',
   styleUrls: ['./basic-project-table.component.css']
 })
-export class BasicProjectTable {
+export class BasicProjectTableComponent {
   selectedProduct: Product = this.getProduct(1);
 
-  constructor(private projectRepository: BasicProjectProductRepository,
+  constructor(public projectRepository: BasicProjectProductRepository,
               @Inject(SHARED_STATE) private stateObserver: Observer<SharedState>) {}
 
   getProduct(id: number): Product {
@@ -24,8 +24,15 @@ export class BasicProjectTable {
     return this.projectRepository.getProducts();
   }
 
+  getProductFetch(id: number) {
+    this.projectRepository.getProductFetch(id).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+  }
+
   deleteProduct(id: number): boolean {
-    this.projectRepository.deleteProduct(id);
+    this.projectRepository.deleteProduct(this.getProduct(id));
     return this.getProduct(id) == null;
   }
 

@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {BasicProjectMessageService} from "../../../service/basic-project-message.service";
 import {Message} from "../../../model/message.model";
+import {NavigationCancel, NavigationEnd, Router} from "@angular/router";
+import 'rxjs/Rx';
 declare var $: any;
 
 @Component({
@@ -8,33 +10,21 @@ declare var $: any;
   templateUrl: './basic-message.component.html',
   styleUrls: ['./basic-message.component.css']
 })
-export class BasicMessageComponent implements OnInit, AfterViewInit {
+export class BasicMessageComponent {
   lastMessage: Message;
   hasMessage: boolean = false;
 
-  constructor(private messageService: BasicProjectMessageService) {
-    messageService.message.subscribe(message => {
+  constructor(
+    private messageService: BasicProjectMessageService,
+    private router: Router) {
+    this.messageService.messageSubject.subscribe(message => {
       this.lastMessage = message;
-      this.hasMessage = this.lastMessage.text != "" ;
-      setTimeout(()=>{
-        $(this).closest('.message').transition('fade');
-        this.closeMessage();
-      },2000);
+      this.hasMessage = true;
     });
 
-    var value = this.hasMessage;
-    $(document).on('click','i.closableIcon', function () {
-      $(this).closest('.message').transition('fade');
-      value=false;
-    });
-
+    router.events
+      .filter(event => event instanceof NavigationEnd ||event instanceof NavigationCancel )
+      .subscribe(event => this.lastMessage = null);
   }
 
-  ngAfterViewInit(){}
-
-  ngOnInit() {}
-
-  closeMessage() {
-    setTimeout(() => this.hasMessage = false, 2000);
-  }
 }

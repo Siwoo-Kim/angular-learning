@@ -16,3 +16,13 @@ app.set('port',port);
 
 const server = http.createServer(app);
 server.listen(port, () => console.log('running'));
+const command = `json-server --watch src/META-INF/data.json --port ${port}`;
+
+exec(command, (err, stdout, stderr) => {
+  if (err) {
+    console.log('Error running exec', err);
+    return;
+  }
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
+});
